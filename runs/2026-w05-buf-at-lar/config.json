@@ -1,0 +1,57 @@
+{
+  "template": "A",
+  "season": 2026,
+  "week": 5,
+  "run_date": "2026-10-11",
+  "title": "Week 5 · Monday Night Football",
+  "games": [
+    {
+      "away": "BUF",
+      "home": "LAR",
+      "kickoff": "Mon Oct 12, 2026 · 8:15 PM ET",
+      "venue": "SoFi Stadium, Inglewood CA (roofed)",
+      "neutral": false,
+      "lines_source": "User: ML and spread/total numbers. Juice on spread/total not given → DraftKings via ESPN pickcenter.",
+      "ml": {"away": 148, "home": -176},
+      "spread": {"home_line": -3.5, "away_price": -115, "home_price": -105},
+      "total": {"line": 54.5, "over_price": -115, "under_price": -105},
+      "h1_under_price": null,
+      "h2_under_price": null,
+      "skip_full_game": null,
+      "opening": "LAR -2.5 · ML LAR -140 / BUF +115 · Total 53.5",
+      "line_move": "Spread -2.5 → -3.5, ML -140 → -176, total 53.5 → 54.5 (toward LAR and the over) even after Myles Garrett went to IR.",
+      "weather": "Roofed stadium. ESPN/AccuWeather: 68F, gusts 16 mph outside; not a factor indoors.",
+      "qbs": "Josh Allen (BUF) and Matthew Stafford (LAR) started all 4 games; neither on the injury report.",
+      "injuries": {
+        "BUF": ["OUT: DT Ed Oliver (knee)", "OUT: WR Joshua Palmer (shoulder)", "Q: WR DJ Moore (shoulder AC)", "Q: CB Dee Alford (ankle)", "Q: DE Landon Jackson (knee)"],
+        "LAR": ["IR: DE Myles Garrett (knee, placed Oct 10)", "IR: TE Terrance Ferguson", "Q: S Quentin Lake (hip), trending toward playing", "Cleared: DE Aaron Donald, TE Colby Parkinson, CB Jaylen Watson"]
+      },
+      "situation": [
+        "Rest: both last played Sun Oct 4, so rest is even.",
+        "Travel: BUF goes cross-country, but it's a night kickoff (not an early body-clock game).",
+        "Non-division, primetime: leans slightly under.",
+        "Small sample: both teams have played 4 games (no LOW CONFIDENCE flag, which is <4)."
+      ],
+      "kills_it": {
+        "2H U26.5": "A shootout late: LAR's 2nd half at DEN produced 40 points.",
+        "BUF +3.5": "LAR's top-3 defense holds BUF's offense down and the Rams win by a TD."
+      }
+    }
+  ],
+  "not_checked": [
+    "pro-football-reference.com and footballdb.com returned HTTP 403, so ESPN's scoreboard API was used for quarter scores and box scores.",
+    "rbsdm.com is JavaScript-only, so EPA was derived from nflverse play-by-play instead.",
+    "Next Gen Stats, Sharp Football, ESPN win rates, Ourlads, referee crew: not pulled.",
+    "1H/2H under 26.5 prices not provided, so they can't be compared to the Need price.",
+    "Inactives (~90 min before kickoff): recheck DJ Moore and Quentin Lake."
+  ],
+  "sources": [
+    ["StatRankings team stats (26 pages)", "https://www.statrankings.com/nfl/teams/scoring-offense/points-per-game"],
+    ["ESPN scoreboard API (quarter scores, odds, injuries)", "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates=2026&seasontype=2&week=5"],
+    ["nflverse play-by-play 2026 (EPA)", "https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2026.csv.gz"],
+    ["Rams Week 5 injury report", "https://www.therams.com/news/rams-injury-report-week-5-2026-vs-bills-aaron-donald-colby-parkinson-and-jaylen-watson-good-to-go-for-monday-night-football"],
+    ["WGRZ: Bills rule out Oliver, Palmer", "https://www.wgrz.com/article/sports/nfl/bills/bills-rule-out-ed-oliver-joshua-palmer-ahead-of-rams-game/71-25bfe831-9e48-4f90-a84c-b6d122a3805e"],
+    ["Buffalo Rumblings: opening lines", "https://www.buffalorumblings.com/buffalo-bills-odds/142026/bills-vs-rams-odds-week-5-opening-lines-point-spread-total"],
+    ["Covers: Week 5 odds", "https://www.covers.com/nfl/week-5-odds-opening-lines-2026"]
+  ]
+}
