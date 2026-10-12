@@ -464,10 +464,17 @@ GLOSSARY = [
 ]
 
 
-def page(title, body, accents=("#38bdf8", "#a78bfa"), back=True):
+FAVICON = ("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E"
+           "%3Ctext y='.9em' font-size='90'%3E%F0%9F%8F%88%3C/text%3E%3C/svg%3E")  # 🏈, inline so no /favicon.ico 404
+
+
+def page(title, body, accents=("#38bdf8", "#a78bfa"), back=True,
+         desc="Plain-English NFL bet checks: whether to bet each game, and why."):
     nav = '<a href="../../index.html" style="font-size:14px">← All games</a>' if back else ""
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"><title>{esc(title)}</title>
+<meta name="description" content="{esc(desc)}"><meta property="og:title" content="{esc(title)}"><meta property="og:description" content="{esc(desc)}">
+<meta name="theme-color" content="#0b1020"><link rel="icon" href="{FAVICON}">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
 <style>{CSS}</style></head><body style="--a:{accents[0]};--h:{accents[1]}"><div class="wrap">{nav}{body}</div></body></html>"""
@@ -495,6 +502,28 @@ This is research, not a guarantee. Never bet money you can't afford to lose.</di
     open(f"{run}/report.html", "w").write(page(f"{title} Bet Check", body, team_accents(g0["away"], g0["home"])))
 
 
+INDEX_CSS = """
+.top{border-radius:22px;padding:22px 20px;color:#fff;box-shadow:var(--shadow);position:relative;overflow:hidden;
+background:linear-gradient(120deg,#1d4ed8 0%,#7c3aed 55%,#db2777 100%)}
+.top:after{content:"";position:absolute;right:-40px;top:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.12)}
+.top h1{margin:0;font-size:32px;line-height:1.1}.top p{margin:8px 0 0;opacity:.92;max-width:520px}
+.gcard{display:block;text-decoration:none;color:inherit;margin-bottom:14px;transition:transform .15s}
+.gcard:hover{transform:translateY(-2px)}
+.gcard .card{border-left:6px solid var(--tc);padding:0;overflow:hidden}
+.gband{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;color:#fff;
+background:linear-gradient(110deg,var(--ac) 0%,var(--ac) 45%,var(--hc) 55%,var(--hc) 100%)}
+.gband b{font:700 30px/1 Oswald,sans-serif}.gband span{font-size:12px;opacity:.9}
+.gbody{padding:14px 16px}
+.mini{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:12px 0 4px}
+.mini div{border-radius:10px;padding:6px 4px;text-align:center;font-size:11px;line-height:1.25}
+.mini b{display:block;font:700 17px Oswald,sans-serif}
+.m-go{background:rgba(34,197,94,.16);color:var(--go)}.m-no{background:var(--panel2);color:var(--mute)}
+.cta{display:inline-block;margin-top:10px;font-weight:700;color:var(--info)}
+"""
+
+SHORT = {"ML": "Winner", "Spread": "Spread", "O/U": "Total", "1H U26.5": "1st half", "2H U26.5": "2nd half"}
+
+
 def build_index():
     cards = []
     for rj in sorted(glob.glob(f"{ROOT}/runs/*/result.json"), reverse=True):
@@ -505,18 +534,30 @@ def build_index():
             A, H = r["away"], r["home"]
             q = [m for m in r["markets"] if m["qualifies"]]
             if q:
-                verdict = f'<div style="color:var(--go);font:700 22px Oswald,sans-serif">✅ Bet {len(q)}: {esc(", ".join(m["pick"] for m in q))}</div>'
+                verdict = f'<div style="color:var(--go);font:700 23px Oswald,sans-serif">✅ Bet {len(q)}: {esc(", ".join(m["pick"] for m in q))}</div>'
             else:
-                verdict = '<div style="color:var(--no);font:700 22px Oswald,sans-serif">🛑 Don\'t bet this game</div>'
+                verdict = '<div style="color:var(--no);font:700 23px Oswald,sans-serif">🛑 Don\'t bet this game</div>'
+            mini = "".join(f'<div class="{"m-go" if m["qualifies"] else "m-no"}">{SHORT.get(m["bet"], m["bet"])}<b>{pct(m["final"])}%</b>{"✓ bet" if m["qualifies"] else "✕ skip"}</div>'
+                           for m in r["markets"])
             cards.append(
-                f'<a href="runs/{run}/report.html" style="text-decoration:none;color:inherit"><div class="card" style="border-left:6px solid {colors(H)[0]};margin-bottom:12px">'
-                f'<div style="font-size:12px;color:var(--mute);text-transform:uppercase;letter-spacing:1.5px">{esc(cfg.get("title", ""))} · {esc(r["meta"].get("kickoff", ""))}</div>'
-                f'<div style="font:700 26px Oswald,sans-serif;margin:2px 0">{esc(name(A))} at {esc(name(H))}</div>{verdict}'
-                f'<div style="font-size:14px;color:var(--mute);margin-top:4px">{len(q)} of 5 bets passed our checks. Tap to see each bet explained →</div></div></a>')
-    body = ('<h1 style="font-size:30px;margin:8px 0 2px">🏈 NFL Bet Check</h1>'
-            '<div style="color:var(--mute);margin:0 0 16px">One card per game, newest first. Each tells you plainly whether to bet, and the page behind it explains why.</div>'
+                f'<a class="gcard" href="runs/{run}/report.html" style="--tc:{colors(H)[1]};--ac:{colors(A)[0]};--hc:{colors(H)[0]}"><div class="card">'
+                f'<div class="gband"><div><b>{A}</b> <span>at</span> <b>{H}</b></div><span>{esc(r["meta"].get("kickoff", ""))}</span></div>'
+                f'<div class="gbody"><div style="font-size:12px;color:var(--mute);text-transform:uppercase;letter-spacing:1.5px">{esc(cfg.get("title", ""))}</div>'
+                f'<div style="font:600 19px Oswald,sans-serif;margin:2px 0 6px">{esc(name(A))} at {esc(name(H))}</div>{verdict}'
+                f'<div class="mini">{mini}</div>'
+                f'<div style="font-size:14px;color:var(--mute)">{len(q)} of 5 bets passed our checks. Percent = our chance the bet wins.</div>'
+                f'<span class="cta">See every bet explained →</span></div></div></a>')
+    n = len(cards)
+    body = (f'<style>{INDEX_CSS}</style>'
+            '<div class="top"><h1>🏈 NFL Bet Check</h1>'
+            '<p>Before you bet an NFL game, check here. Each game gets a plain answer, <b>bet</b> or <b>don\'t bet</b>, and a page that explains why in everyday words.</p></div>'
+            '<h2>How it works</h2><div class="steps">'
+            '<div class="step"><span class="st">1 · We crunch the numbers</span>This season\'s scoring for both teams, compared with the sportsbook\'s odds.</div>'
+            '<div class="step"><span class="st">2 · Each bet gets a chance</span>From 0% to 100%. 50% is a coin flip.</div>'
+            '<div class="step"><span class="st">3 · Strict cutoff</span>We only say "bet" at 60%+ (65%+ for half bets), with a fair price. Otherwise: skip.</div></div>'
+            f'<h2>Games ({n})</h2>'
             f'{"".join(cards) or "<div class=card>No games yet.</div>"}'
-            f'<div class="foot">Updated {datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")} · Research, not a guarantee.</div>')
+            f'<div class="foot">Updated {datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")} · Research, not a guarantee. Never bet money you can\'t afford to lose.</div>')
     open(f"{ROOT}/index.html", "w").write(page("NFL Bet Check", body, back=False))
 
 
