@@ -4,8 +4,13 @@ Game-bet research reports for NFL matchups, built with the `nfl-bet-research` me
 current-season stats only, the sportsbook line as the anchor, and research that nudges it a quarter
 of the way toward our model. Bets are made only when strict cutoffs are met.
 
-**Open `index.html`** to see every run, or go straight to a report in `runs/<run>/report.html`
-(download the file, or view it via GitHub Pages if it's enabled).
+**Live site:** deployed on Vercel from this repo. Every push to `main` redeploys automatically.
+Locally: `python3 -m http.server` in the repo root, then open http://localhost:8000.
+
+### Deploy on Vercel (one time)
+1. Go to https://vercel.com/new and import `Rashad1019/nfl-research`.
+2. Framework Preset: **Other**. Leave build and output settings empty (`vercel.json` handles it).
+3. Click **Deploy**. Your site URL is the list of games; tap a game for its report.
 
 ## What's in a report
 - Matchup banner, the book lines, and a one-line verdict (bet / no bet, and why)

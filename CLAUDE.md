@@ -47,6 +47,21 @@ sometimes 1H/2H under prices). Then:
 8. **Grading**: when Rashad sends final scores ("grade it"), record W/L/Push per market in
    `runs/<run>/grades.json` (not built yet; see Roadmap) and push.
 
+## Hosting on Vercel
+
+The site is plain static HTML; Vercel serves it with **no build step**.
+- `vercel.json`: `framework: null`, empty install/build commands (skip the build), and HTML served
+  with `must-revalidate` so a new run shows up right after deploy.
+- `.vercelignore`: keeps `scripts/`, `runs/*/data/` and the `.md` docs out of the deployment.
+  Only `index.html` and `runs/*/report.html` (+ small `config.json`/`result.json`) go online.
+- Rashad connects the GitHub repo once in Vercel (vercel.com/new → import `Rashad1019/nfl-research`
+  → Framework Preset "Other" → Deploy). After that, **every push to `main` auto-deploys**, so the
+  normal workflow (commit + push) also publishes the page. No Vercel CLI needed.
+- All links are relative (`runs/<run>/report.html`, `../../index.html`), so they work on any domain.
+  Keep them relative. Don't add a framework, `package.json` or an `api/` folder, which would change
+  how Vercel builds the site.
+- Local preview: `python3 -m http.server` in the repo root, then open http://localhost:8000.
+
 ## Report audience and layout (Rashad's requirement, 2026-10-11)
 
 Write the report for **someone who has never placed a sports bet**. They should know instantly what
@@ -151,7 +166,6 @@ ESPN endpoints (no key needed):
 ## Roadmap / not built yet
 - Template B (player props) pipeline + report.
 - `grades.json` + a running record by bet type on `index.html` (skill "Results log").
-- GitHub Pages (would make `index.html` viewable as a website; not enabled yet).
 
 ## Run history
 | Run | Date | Result |

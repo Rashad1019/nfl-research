@@ -1,0 +1,5 @@
+# Only the HTML pages need to be online. Code, raw data and docs stay in GitHub.
+scripts/
+runs/*/data/
+*.md
+.gitignore
