@@ -1,7 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1"><title>BUF @ LAR Bet Research</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>BUF @ LAR Bet Check</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0b1020;--panel:#131a2e;--panel2:#1a2340;--ink:#eef2ff;--mute:#9aa6c8;--line:#2a3558;
 --go:#22c55e;--no:#f43f5e;--warn:#f59e0b;--info:#38bdf8;--vio:#a78bfa;--track:#222c4a;
@@ -11,10 +11,10 @@
 :root[data-theme="light"]{--bg:#f4f6fb;--panel:#ffffff;--panel2:#eef2fb;--ink:#0f172a;--mute:#5b6787;--line:#dfe5f2;--track:#e6ebf5;--shadow:0 8px 24px rgba(15,23,42,.08)}
 :root[data-theme="dark"]{--bg:#0b1020;--panel:#131a2e;--panel2:#1a2340;--ink:#eef2ff;--mute:#9aa6c8;--line:#2a3558;--track:#222c4a}
 *{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-.wrap{max-width:960px;margin:0 auto;padding:16px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:16px}
 h1,h2,h3,.num{font-family:Oswald,Inter,sans-serif;letter-spacing:.3px}
-h2{font-size:20px;margin:28px 0 12px;display:flex;align-items:center;gap:10px}
+h2{font-size:21px;margin:30px 0 12px;display:flex;align-items:center;gap:10px}
 h2:before{content:"";width:6px;height:22px;border-radius:3px;background:linear-gradient(var(--a),var(--h))}
 a{color:var(--info)}
 .hero{border-radius:22px;overflow:hidden;box-shadow:var(--shadow);position:relative;color:#fff;
@@ -23,162 +23,180 @@ background:linear-gradient(115deg,var(--a1) 0%,var(--a1) 42%,var(--h1) 58%,var(-
 linear-gradient(115deg,transparent 46%,rgba(255,255,255,.25) 50%,transparent 54%)}
 .hero-in{position:relative;z-index:1;padding:22px 20px 18px}
 .stripe{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;height:8px}
-.kick{font-size:12px;text-transform:uppercase;letter-spacing:2px;opacity:.85}
+.kick{font-size:12px;text-transform:uppercase;letter-spacing:2px;opacity:.9}
 .vs{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;margin:14px 0 6px}
-.tm{text-align:center}.tm .ab{font:700 46px/1 Oswald,sans-serif}.tm .nm{font-size:12px;opacity:.85}
-.tm .rec{display:inline-block;margin-top:6px;font-size:11px;padding:2px 8px;border-radius:99px;background:rgba(0,0,0,.28)}
+.tm{text-align:center}.tm .ab{font:700 46px/1 Oswald,sans-serif}.tm .nm{font-size:13px;opacity:.9}
+.tm .rec{display:inline-block;margin-top:6px;font-size:12px;padding:2px 9px;border-radius:99px;background:rgba(0,0,0,.28)}
 .at{font:600 18px Oswald,sans-serif;opacity:.8}
-.chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:12px}
-.chip{font-size:12px;padding:5px 10px;border-radius:99px;background:rgba(0,0,0,.32);backdrop-filter:blur(4px)}
-.verdict{margin:16px 0 0;border-radius:16px;padding:14px 16px;display:flex;gap:12px;align-items:center;
-background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow)}
-.verdict .big{font:700 22px Oswald,sans-serif}.verdict .ic{font-size:28px}
-.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px 14px 12px;box-shadow:var(--shadow)}
-.mk-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
-.mk-bet{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--mute)}
-.mk-pick{font:600 20px Oswald,sans-serif}
-.mk-ch{font:700 34px/1 Oswald,sans-serif;text-align:right}
-.badge{display:inline-block;font-size:11px;font-weight:700;padding:3px 8px;border-radius:99px;letter-spacing:.5px}
-.b-go{background:rgba(34,197,94,.16);color:var(--go)}.b-no{background:rgba(244,63,94,.14);color:var(--no)}
-.b-warn{background:rgba(245,158,11,.16);color:var(--warn)}
-.bar{position:relative;height:14px;border-radius:99px;background:var(--track);margin:14px 0 6px;overflow:visible}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:var(--shadow)}
+.todo{border-radius:20px;padding:20px;margin-top:16px;border:2px solid}
+.todo.no{background:linear-gradient(135deg,rgba(244,63,94,.16),rgba(244,63,94,.04));border-color:rgba(244,63,94,.55)}
+.todo.go{background:linear-gradient(135deg,rgba(34,197,94,.18),rgba(34,197,94,.04));border-color:rgba(34,197,94,.6)}
+.todo .lbl{font-size:12px;text-transform:uppercase;letter-spacing:2px;color:var(--mute);font-weight:700}
+.todo .big{font:700 32px/1.15 Oswald,sans-serif;margin:4px 0 8px}
+.todo.no .big{color:var(--no)}.todo.go .big{color:var(--go)}
+.todo p{margin:6px 0}
+.steps{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.step{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:14px}
+.step .st{display:block;font:600 16px Oswald,sans-serif;margin-bottom:2px}
+.sum{width:100%;border-collapse:separate;border-spacing:0 8px;font-size:15px}
+.sum td{background:var(--panel);padding:12px 10px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.sum td:first-child{border-left:1px solid var(--line);border-radius:12px 0 0 12px}
+.sum td:last-child{border-right:1px solid var(--line);border-radius:0 12px 12px 0;text-align:right}
+.sum th{font-size:11px;color:var(--mute);text-transform:uppercase;letter-spacing:1px;text-align:left;padding:0 10px}
+.sum th:last-child{text-align:right}
+.sum .ch{font:700 20px Oswald,sans-serif}
+.dec{display:inline-block;font-weight:800;font-size:12px;padding:5px 10px;border-radius:99px;letter-spacing:.6px;white-space:nowrap}
+.d-no{background:rgba(244,63,94,.15);color:var(--no)}.d-go{background:rgba(34,197,94,.18);color:var(--go)}
+.bet{margin-top:16px;border-left:6px solid var(--no)}.bet.ok{border-left-color:var(--go)}
+.bet .hd{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.bet .n{font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--mute);font-weight:700}
+.bet .pick{font:700 24px/1.2 Oswald,sans-serif;margin:2px 0}
+.what{background:var(--panel2);border-radius:12px;padding:10px 12px;margin:12px 0;font-size:15px}
+.what b{color:var(--info)}
+.meter{margin:14px 0 4px}
+.mrow{display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px}
+.mrow .big{font:700 26px/1 Oswald,sans-serif}
+.track{position:relative;height:18px;border-radius:99px;background:var(--track)}
 .fill{position:absolute;left:0;top:0;bottom:0;border-radius:99px}
-.cut{position:absolute;top:-5px;bottom:-5px;width:0;border-left:2px dashed var(--ink);opacity:.55}
-.dot{position:absolute;top:50%;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;border:2px solid var(--panel)}
-.dia{position:absolute;top:50%;width:12px;height:12px;margin:-6px 0 0 -6px;transform:rotate(45deg);border:2px solid var(--panel)}
-.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:var(--mute)}
-.legend i{display:inline-block;width:9px;height:9px;margin-right:4px;vertical-align:-1px}
-.kv{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}
-.kv div{background:var(--panel2);border-radius:10px;padding:6px 8px}.kv b{display:block;font:600 16px Oswald,sans-serif}
-.kv span{font-size:10px;color:var(--mute);text-transform:uppercase;letter-spacing:1px}
-.why{font-size:13px;color:var(--mute);margin-top:8px}
-.score{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.sc{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow)}
-.sc h3{margin:0 0 8px;font-size:13px;color:var(--mute);text-transform:uppercase;letter-spacing:1.5px}
-.sline{display:flex;align-items:center;justify-content:space-between;margin:4px 0}
-.sline .num{font-size:30px;font-weight:700}
-.pill{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px}
-.cmp{font-size:12px;color:var(--mute);border-top:1px solid var(--line);padding-top:8px;margin-top:8px}
-table{width:100%;border-collapse:collapse;font-size:13px}
-th,td{padding:7px 6px;text-align:right;border-bottom:1px solid var(--line)}th:first-child,td:first-child{text-align:left}
-th{color:var(--mute);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:1px}
-.scroll{overflow-x:auto}
-.tape-row{display:grid;grid-template-columns:1fr 92px 1fr;align-items:center;gap:8px;margin:7px 0;font-size:13px}
-.tape-l,.tape-r{display:flex;align-items:center;gap:6px}.tape-l{justify-content:flex-end}
-.tape-c{text-align:center;font-size:11px;color:var(--mute);text-transform:uppercase;letter-spacing:.8px;line-height:1.2}
-.tb{height:10px;border-radius:99px}
-.best{font-weight:700}
-ul.clean{margin:0;padding-left:18px}ul.clean li{margin:4px 0}
-.inj{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-.tag{font-size:10px;font-weight:700;padding:2px 6px;border-radius:6px;margin-right:6px}
+.need{position:absolute;top:-6px;bottom:-6px;border-left:3px solid var(--ink)}
+.need span{position:absolute;top:-20px;left:-30px;width:60px;text-align:center;font-size:11px;font-weight:700;color:var(--ink)}
+.half50{position:absolute;top:0;bottom:0;border-left:1px dashed var(--mute);opacity:.6}
+.scale{display:flex;justify-content:space-between;font-size:11px;color:var(--mute);margin-top:4px}
+.why h4,.nums h4{margin:16px 0 6px;font:600 15px Oswald,sans-serif;letter-spacing:.5px;text-transform:uppercase}
+.why ul{margin:0;padding:0;list-style:none}
+.why li{position:relative;padding:8px 10px 8px 36px;margin:6px 0;border-radius:10px;background:rgba(244,63,94,.07);font-size:15px}
+.why li:before{content:"✕";position:absolute;left:12px;top:8px;color:var(--no);font-weight:800}
+.why li.okk{background:rgba(34,197,94,.08)}.why li.okk:before{content:"✓";color:var(--go)}
+.why li.inf{background:rgba(56,189,248,.09)}.why li.inf:before{content:"i";color:var(--info);font-family:Georgia,serif}
+.nums table{width:100%;border-collapse:collapse;font-size:14px}
+.nums td{padding:7px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+.nums td:last-child{text-align:right;font-weight:700;white-space:nowrap}
+.nums tr.tot td{border-top:2px solid var(--ink);font-size:15px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.chip{font-size:13px;padding:4px 9px;border-radius:99px;font-weight:600}
+.c-u{background:rgba(34,197,94,.15);color:var(--go)}.c-o{background:rgba(244,63,94,.13);color:var(--no)}
+.how{font-size:13px;color:var(--mute);margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
+.grid2{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+ul.clean{margin:0;padding-left:18px}ul.clean li{margin:5px 0}
+.tag{font-size:10px;font-weight:800;padding:2px 6px;border-radius:6px;margin-right:6px}
 .t-out{background:rgba(244,63,94,.15);color:var(--no)}.t-q{background:rgba(245,158,11,.16);color:var(--warn)}
 .t-ok{background:rgba(34,197,94,.15);color:var(--go)}
+details{margin-top:14px}summary{cursor:pointer;font:600 17px Oswald,sans-serif;padding:12px 16px;background:var(--panel);
+border:1px solid var(--line);border-radius:14px;list-style:none}summary::-webkit-details-marker{display:none}
+summary:after{content:" ▸";color:var(--mute)}details[open] summary:after{content:" ▾"}
+details>div{margin-top:10px}
+table.plain{width:100%;border-collapse:collapse;font-size:13px}
+table.plain th,table.plain td{padding:7px 6px;text-align:right;border-bottom:1px solid var(--line)}
+table.plain th:first-child,table.plain td:first-child{text-align:left}
+table.plain th{color:var(--mute);font-size:11px;text-transform:uppercase;letter-spacing:1px}
+.gl dt{font-weight:700;margin-top:10px}.gl dd{margin:2px 0 0;color:var(--mute);font-size:14px}
 .foot{color:var(--mute);font-size:12px;margin:28px 0 10px;text-align:center}
-svg text{fill:var(--mute);font:10px Inter,sans-serif}
-@media (max-width:520px){.tm .ab{font-size:38px}.mk-ch{font-size:30px}.score{grid-template-columns:1fr}.kv b{font-size:15px}}
-</style></head><body style="--a:#5476b2;--h:#ffa300"><div class="wrap"><a href="../../index.html" style="font-size:13px">← All runs</a><h1 style="font-size:26px;margin:10px 0 14px">NFL Bet Research <span style="color:var(--mute);font-weight:500">· Week 5 · Monday Night Football</span></h1>
+@media (max-width:520px){.tm .ab{font-size:38px}.todo .big{font-size:27px}.bet .pick{font-size:21px}.sum{font-size:14px}}
+</style></head><body style="--a:#5476b2;--h:#ffa300"><div class="wrap"><a href="../../index.html" style="font-size:14px">← All games</a><h1 style="font-size:24px;margin:10px 0 14px">NFL Bet Check <span style="color:var(--mute);font-weight:500">· Week 5 · Monday Night Football</span></h1>
 <section class="hero" style="--a1:#00338D;--h1:#003594"><div class="hero-in">
  <div class="kick">Mon Oct 12, 2026 · 8:15 PM ET</div>
  <div class="vs"><div class="tm"><div class="ab">BUF</div><div class="nm">Buffalo Bills</div><div class="rec">3-1-0</div></div>
  <div class="at">@</div>
  <div class="tm"><div class="ab">LAR</div><div class="nm">Los Angeles Rams</div><div class="rec">2-2-0</div></div></div>
- <div class="chips"><span class="chip">LAR -3.5</span><span class="chip">ML BUF +148 / LAR -176</span><span class="chip">O/U 54.5</span></div>
+ <div style="text-align:center;font-size:13px;opacity:.9">SoFi Stadium, Inglewood CA (roofed)</div>
 </div><div class="stripe"><span style="background:#C60C30"></span><span style="background:#FFA300"></span></div></section>
-<div class="verdict"><div class="ic">🛑</div><div><div class="big">No bets: every market fails a rule</div><div class="why">Closest: 2H U26.5 Under 26.5 at 64% (below 65%).</div></div></div>
+<div class="todo no"><div class="lbl">What to do</div><div class="big">Don't bet this game.</div><p>We checked all 5 common bets on Bills at Rams. <b>None passed our rules.</b> They're all too close to a coin flip, or our numbers fight the sportsbook's too much to trust.</p><p>The closest was <b>Under 26.5</b> (2nd-half points under 26.5) at 64%, still short of the 65% we require.</p><p style="color:var(--mute);font-size:14px">Skipping is a good result: it keeps money off bets that aren't clearly in your favor.</p></div>
 
-<h2>Projected score</h2>
-<div class="score">
- <div class="sc"><h3>Raw</h3>
-  <div class="sline"><span><i class="pill" style="background:#5476b2"></i>BUF</span><span class="num">26.2</span></div>
-  <div class="sline"><span><i class="pill" style="background:#ffa300"></i>LAR</span><span class="num">24.0</span></div>
-  <div class="cmp">Margin BUF by 0.8 (incl. +1.5 home) · Total 50.2</div></div>
- <div class="sc"><h3>Schedule-adjusted</h3>
-  <div class="sline"><span><i class="pill" style="background:#5476b2"></i>BUF</span><span class="num">26.2</span></div>
-  <div class="sline"><span><i class="pill" style="background:#ffa300"></i>LAR</span><span class="num">25.0</span></div>
-  <div class="cmp">Margin LAR by 0.4 · Total 51.2</div></div>
+<h2>How to read this page</h2>
+<div class="steps">
+ <div class="step"><span class="st">1 · Our chance</span>Every bet gets a chance of winning, from 0% to 100%. 50% is a coin flip.</div>
+ <div class="step"><span class="st">2 · The bar to clear</span>We only bet at <b>60%+</b> (<b>65%+</b> for half bets). The black line on each meter marks it.</div>
+ <div class="step"><span class="st">3 · Extra checks</span>Our stats can't fight the sportsbook by more than 10 points, and the price can't be too expensive.</div>
+ <div class="step"><span class="st">4 · Decision</span><span style="color:var(--go);font-weight:700">Green ✓ = bet it.</span> <span style="color:var(--no);font-weight:700">Red ✕ = skip it</span>, and the card says why.</div>
 </div>
-<div class="card" style="margin-top:12px"><div class="why" style="margin:0">
- <b>Book says:</b> LAR by 3.5, total 54.5. <b>Model says:</b> BUF by 0.8 to LAR by 0.4, total 50.2–51.2.
- Schedule: BUF opponents allowed 24.1 / scored 23.4; LAR opponents allowed 21.1 / scored 22.6 (league avg 23.3).
- <br><b>Line move:</b> Spread -2.5 → -3.5, ML -140 → -176, total 53.5 → 54.5 (toward LAR and the over) even after Myles Garrett went to IR.</div></div>
 
-<h2>All 5 bets</h2>
-<div class="grid g2"><div class="card">
- <div class="mk-top"><div><div class="mk-bet">ML</div><div class="mk-pick">LAR -176</div><span class="badge b-no">PASS</span> <span class="badge b-warn">⚠ DISAGREE</span></div>
- <div class="mk-ch num">58%</div></div>
- <div class="bar"><div class="fill" style="width:58.3%;background:linear-gradient(90deg,#f59e0b66,#f59e0b)"></div><div class="cut" style="left:60.0%" title="cutoff 60%"></div><div class="dia" style="left:61.3%;background:var(--info)" title="book fair 61%"></div><div class="dot" style="left:49.4%;background:var(--vio)" title="model 49%"></div></div>
- <div class="legend"><span><i style="background:var(--vio);border-radius:50%"></i>Model 49%</span>
- <span><i style="background:var(--info);transform:rotate(45deg)"></i>Book fair 61%</span>
- <span><i style="border-left:2px dashed var(--ink);width:2px"></i>Cutoff 60%</span></div>
- <div class="kv"><div><span>Final</span><b>58%</b></div><div><span>Need</span><b>-140</b></div><div><span>Book price</span><b>-176</b></div></div>
- <div class="why">Model margin BUF by 0.8 (raw) / LAR by 0.4 (adj): near a coin flip; book says 61%.</div><div class="why"><b>Blocked by:</b> below 60%, DISAGREE, overpriced</div>
-</div><div class="card">
- <div class="mk-top"><div><div class="mk-bet">Spread</div><div class="mk-pick">BUF +3.5</div><span class="badge b-no">PASS</span></div>
- <div class="mk-ch num">54%</div></div>
- <div class="bar"><div class="fill" style="width:53.5%;background:linear-gradient(90deg,#ffa30066,#ffa300)"></div><div class="cut" style="left:60.0%" title="cutoff 60%"></div><div class="dia" style="left:51.1%;background:var(--info)" title="book fair 51%"></div><div class="dot" style="left:60.9%;background:var(--vio)" title="model 61%"></div></div>
- <div class="legend"><span><i style="background:var(--vio);border-radius:50%"></i>Model 61%</span>
- <span><i style="background:var(--info);transform:rotate(45deg)"></i>Book fair 51%</span>
- <span><i style="border-left:2px dashed var(--ink);width:2px"></i>Cutoff 60%</span></div>
- <div class="kv"><div><span>Final</span><b>54%</b></div><div><span>Need</span><b>-115</b></div><div><span>Book price</span><b>-115</b></div></div>
- <div class="why">Projected margin BUF by 0.8 to LAR by 0.4 vs the -3.5 line.</div><div class="why"><b>Blocked by:</b> below 60%</div>
-</div><div class="card">
- <div class="mk-top"><div><div class="mk-bet">O/U</div><div class="mk-pick">Under 54.5</div><span class="badge b-no">PASS</span> <span class="badge b-warn">⚠ DISAGREE</span></div>
- <div class="mk-ch num">52%</div></div>
- <div class="bar"><div class="fill" style="width:51.9%;background:linear-gradient(90deg,#ffa30066,#ffa300)"></div><div class="cut" style="left:60.0%" title="cutoff 60%"></div><div class="dia" style="left:48.9%;background:var(--info)" title="book fair 49%"></div><div class="dot" style="left:61.0%;background:var(--vio)" title="model 61%"></div></div>
- <div class="legend"><span><i style="background:var(--vio);border-radius:50%"></i>Model 61%</span>
- <span><i style="background:var(--info);transform:rotate(45deg)"></i>Book fair 49%</span>
- <span><i style="border-left:2px dashed var(--ink);width:2px"></i>Cutoff 60%</span></div>
- <div class="kv"><div><span>Final</span><b>52%</b></div><div><span>Need</span><b>-108</b></div><div><span>Book price</span><b>-105</b></div></div>
- <div class="why">Model total 50.2–51.2 vs 54.5.</div><div class="why"><b>Blocked by:</b> below 60%, DISAGREE</div>
-</div><div class="card">
- <div class="mk-top"><div><div class="mk-bet">1H U26.5</div><div class="mk-pick">Under 26.5</div><span class="badge b-no">PASS</span></div>
- <div class="mk-ch num">59%</div></div>
- <div class="bar"><div class="fill" style="width:58.5%;background:linear-gradient(90deg,#ffa30066,#ffa300)"></div><div class="cut" style="left:65.0%" title="cutoff 65%"></div><div class="dia" style="left:67.5%;background:var(--info)" title="league rate 68%"></div><div class="dot" style="left:49.5%;background:var(--vio)" title="model 50%"></div></div>
- <div class="legend"><span><i style="background:var(--vio);border-radius:50%"></i>Model 50%</span>
- <span><i style="background:var(--info);transform:rotate(45deg)"></i>League 68%</span>
- <span><i style="border-left:2px dashed var(--ink);width:2px"></i>Cutoff 65%</span></div>
- <div class="kv"><div><span>Final</span><b>59%</b></div><div><span>Need</span><b>-141</b></div><div><span>Team count</span><b>4/8</b></div></div>
- <div class="why">Projected H1 total 26.6; 4 of 8 team games stayed under; league 68%.</div><div class="why"><b>Blocked by:</b> below 65%, team count 4/8 &lt; 75%</div>
-</div><div class="card">
- <div class="mk-top"><div><div class="mk-bet">2H U26.5</div><div class="mk-pick">Under 26.5</div><span class="badge b-no">PASS</span></div>
- <div class="mk-ch num">64%</div></div>
- <div class="bar"><div class="fill" style="width:63.5%;background:linear-gradient(90deg,#f59e0b66,#f59e0b)"></div><div class="cut" style="left:65.0%" title="cutoff 65%"></div><div class="dia" style="left:66.2%;background:var(--info)" title="league rate 66%"></div><div class="dot" style="left:60.8%;background:var(--vio)" title="model 61%"></div></div>
- <div class="legend"><span><i style="background:var(--vio);border-radius:50%"></i>Model 61%</span>
- <span><i style="background:var(--info);transform:rotate(45deg)"></i>League 66%</span>
- <span><i style="border-left:2px dashed var(--ink);width:2px"></i>Cutoff 65%</span></div>
- <div class="kv"><div><span>Final</span><b>64%</b></div><div><span>Need</span><b>-174</b></div><div><span>Team count</span><b>6/8</b></div></div>
- <div class="why">Projected H2 total 23.6; 6 of 8 team games stayed under; league 66%.</div><div class="why"><b>Blocked by:</b> below 65%</div>
-</div></div>
+<h2>The 5 bets at a glance</h2>
+<table class="sum"><tr><th>Bet</th><th>Chance</th><th></th><th>Decision</th></tr><tr><td><b>Moneyline</b><br><span style="color:var(--mute);font-size:13px">LAR -176</span></td><td class="ch" style="color:var(--ink)">58%</td><td style="color:var(--mute);font-size:13px">need 60%</td><td><span class="dec d-no">✕ SKIP</span></td></tr><tr><td><b>Point spread</b><br><span style="color:var(--mute);font-size:13px">BUF +3.5</span></td><td class="ch" style="color:var(--ink)">54%</td><td style="color:var(--mute);font-size:13px">need 60%</td><td><span class="dec d-no">✕ SKIP</span></td></tr><tr><td><b>Total points</b><br><span style="color:var(--mute);font-size:13px">Under 54.5</span></td><td class="ch" style="color:var(--ink)">52%</td><td style="color:var(--mute);font-size:13px">need 60%</td><td><span class="dec d-no">✕ SKIP</span></td></tr><tr><td><b>1st-half points under 26.5</b><br><span style="color:var(--mute);font-size:13px">Under 26.5</span></td><td class="ch" style="color:var(--ink)">59%</td><td style="color:var(--mute);font-size:13px">need 65%</td><td><span class="dec d-no">✕ SKIP</span></td></tr><tr><td><b>2nd-half points under 26.5</b><br><span style="color:var(--mute);font-size:13px">Under 26.5</span></td><td class="ch" style="color:var(--ink)">64%</td><td style="color:var(--mute);font-size:13px">need 65%</td><td><span class="dec d-no">✕ SKIP</span></td></tr></table>
 
-<h2>Half scoring vs 26.5</h2>
-<div class="grid g2"><div class="card"><h3 style="margin:0 0 4px">BUF: 1st-half totals</h3><svg viewBox="0 0 300 130" width="100%" role="img" aria-label="BUF 1st-half totals"><rect x="33.5" y="20.2" width="41.0" height="91.8" rx="5" fill="var(--no)" opacity=".25"/><rect x="33.5" y="63.0" width="41.0" height="49.0" rx="5" fill="#5476b2"/><text x="54.0" y="16.2" text-anchor="middle" style="fill:var(--no);font-weight:700">45</text><text x="54.0" y="126" text-anchor="middle">W1 @ HOU</text><rect x="97.5" y="36.5" width="41.0" height="75.5" rx="5" fill="var(--no)" opacity=".25"/><rect x="97.5" y="56.9" width="41.0" height="55.1" rx="5" fill="#5476b2"/><text x="118.0" y="32.5" text-anchor="middle" style="fill:var(--no);font-weight:700">37</text><text x="118.0" y="126" text-anchor="middle">W2 vs DET</text><rect x="161.5" y="71.2" width="41.0" height="40.8" rx="5" fill="var(--go)" opacity=".25"/><rect x="161.5" y="91.6" width="41.0" height="20.4" rx="5" fill="#5476b2"/><text x="182.0" y="67.2" text-anchor="middle" style="fill:var(--go);font-weight:700">20</text><text x="182.0" y="126" text-anchor="middle">W3 vs LAC</text><rect x="225.5" y="48.7" width="41.0" height="63.3" rx="5" fill="var(--no)" opacity=".25"/><rect x="225.5" y="77.3" width="41.0" height="34.7" rx="5" fill="#5476b2"/><text x="246.0" y="44.7" text-anchor="middle" style="fill:var(--no);font-weight:700">31</text><text x="246.0" y="126" text-anchor="middle">W4 vs NE</text><line x1="16" x2="284" y1="57.9" y2="57.9" stroke="var(--warn)" stroke-width="2" stroke-dasharray="5 4"/><text x="282" y="53.9" text-anchor="end" style="fill:var(--warn)">26.5</text></svg><div class="why">Solid bar = BUF points; faint bar = game total (green under, red over).</div></div><div class="card"><h3 style="margin:0 0 4px">LAR: 1st-half totals</h3><svg viewBox="0 0 300 130" width="100%" role="img" aria-label="LAR 1st-half totals"><rect x="33.5" y="62.0" width="41.0" height="50.0" rx="5" fill="var(--go)" opacity=".25"/><rect x="33.5" y="91.4" width="41.0" height="20.6" rx="5" fill="#ffa300"/><text x="54.0" y="58.0" text-anchor="middle" style="fill:var(--go);font-weight:700">17</text><text x="54.0" y="126" text-anchor="middle">W1 vs SF</text><rect x="97.5" y="62.0" width="41.0" height="50.0" rx="5" fill="var(--go)" opacity=".25"/><rect x="97.5" y="70.8" width="41.0" height="41.2" rx="5" fill="#ffa300"/><text x="118.0" y="58.0" text-anchor="middle" style="fill:var(--go);font-weight:700">17</text><text x="118.0" y="126" text-anchor="middle">W2 vs NYG</text><rect x="161.5" y="64.9" width="41.0" height="47.1" rx="5" fill="var(--go)" opacity=".25"/><rect x="161.5" y="64.9" width="41.0" height="47.1" rx="5" fill="#ffa300"/><text x="182.0" y="60.9" text-anchor="middle" style="fill:var(--go);font-weight:700">16</text><text x="182.0" y="126" text-anchor="middle">W3 @ DEN</text><rect x="225.5" y="23.8" width="41.0" height="88.2" rx="5" fill="var(--no)" opacity=".25"/><rect x="225.5" y="82.6" width="41.0" height="29.4" rx="5" fill="#ffa300"/><text x="246.0" y="19.8" text-anchor="middle" style="fill:var(--no);font-weight:700">30</text><text x="246.0" y="126" text-anchor="middle">W4 @ PHI</text><line x1="16" x2="284" y1="34.1" y2="34.1" stroke="var(--warn)" stroke-width="2" stroke-dasharray="5 4"/><text x="282" y="30.1" text-anchor="end" style="fill:var(--warn)">26.5</text></svg><div class="why">Solid bar = LAR points; faint bar = game total (green under, red over).</div></div><div class="card"><h3 style="margin:0 0 4px">BUF: 2nd-half totals</h3><svg viewBox="0 0 300 130" width="100%" role="img" aria-label="BUF 2nd-half totals"><rect x="33.5" y="55.6" width="41.0" height="56.4" rx="5" fill="var(--go)" opacity=".25"/><rect x="33.5" y="81.2" width="41.0" height="30.8" rx="5" fill="#5476b2"/><text x="54.0" y="51.6" text-anchor="middle" style="fill:var(--go);font-weight:700">22</text><text x="54.0" y="126" text-anchor="middle">W1 @ HOU</text><rect x="97.5" y="22.3" width="41.0" height="89.7" rx="5" fill="var(--no)" opacity=".25"/><rect x="97.5" y="76.1" width="41.0" height="35.9" rx="5" fill="#5476b2"/><text x="118.0" y="18.3" text-anchor="middle" style="fill:var(--no);font-weight:700">35</text><text x="118.0" y="126" text-anchor="middle">W2 vs DET</text><rect x="161.5" y="60.7" width="41.0" height="51.3" rx="5" fill="var(--go)" opacity=".25"/><rect x="161.5" y="76.1" width="41.0" height="35.9" rx="5" fill="#5476b2"/><text x="182.0" y="56.7" text-anchor="middle" style="fill:var(--go);font-weight:700">20</text><text x="182.0" y="126" text-anchor="middle">W3 vs LAC</text><rect x="225.5" y="50.5" width="41.0" height="61.5" rx="5" fill="var(--go)" opacity=".25"/><rect x="225.5" y="88.9" width="41.0" height="23.1" rx="5" fill="#5476b2"/><text x="246.0" y="46.5" text-anchor="middle" style="fill:var(--go);font-weight:700">24</text><text x="246.0" y="126" text-anchor="middle">W4 vs NE</text><line x1="16" x2="284" y1="44.1" y2="44.1" stroke="var(--warn)" stroke-width="2" stroke-dasharray="5 4"/><text x="282" y="40.1" text-anchor="end" style="fill:var(--warn)">26.5</text></svg><div class="why">Solid bar = BUF points; faint bar = game total (green under, red over).</div></div><div class="card"><h3 style="margin:0 0 4px">LAR: 2nd-half totals</h3><svg viewBox="0 0 300 130" width="100%" role="img" aria-label="LAR 2nd-half totals"><rect x="33.5" y="73.4" width="41.0" height="38.6" rx="5" fill="var(--go)" opacity=".25"/><rect x="33.5" y="112.0" width="41.0" height="0.0" rx="5" fill="#ffa300"/><text x="54.0" y="69.4" text-anchor="middle" style="fill:var(--go);font-weight:700">17</text><text x="54.0" y="126" text-anchor="middle">W1 vs SF</text><rect x="97.5" y="73.4" width="41.0" height="38.6" rx="5" fill="var(--go)" opacity=".25"/><rect x="97.5" y="80.2" width="41.0" height="31.8" rx="5" fill="#ffa300"/><text x="118.0" y="69.4" text-anchor="middle" style="fill:var(--go);font-weight:700">17</text><text x="118.0" y="126" text-anchor="middle">W2 vs NYG</text><rect x="161.5" y="21.1" width="41.0" height="90.9" rx="5" fill="var(--no)" opacity=".25"/><rect x="161.5" y="89.3" width="41.0" height="22.7" rx="5" fill="#ffa300"/><text x="182.0" y="17.1" text-anchor="middle" style="fill:var(--no);font-weight:700">40</text><text x="182.0" y="126" text-anchor="middle">W3 @ DEN</text><rect x="225.5" y="80.2" width="41.0" height="31.8" rx="5" fill="var(--go)" opacity=".25"/><rect x="225.5" y="80.2" width="41.0" height="31.8" rx="5" fill="#ffa300"/><text x="246.0" y="76.2" text-anchor="middle" style="fill:var(--go);font-weight:700">14</text><text x="246.0" y="126" text-anchor="middle">W4 @ PHI</text><line x1="16" x2="284" y1="51.8" y2="51.8" stroke="var(--warn)" stroke-width="2" stroke-dasharray="5 4"/><text x="282" y="47.8" text-anchor="end" style="fill:var(--warn)">26.5</text></svg><div class="why">Solid bar = LAR points; faint bar = game total (green under, red over).</div></div></div>
-<div class="card" style="margin-top:12px"><div class="why" style="margin:0">League this season: 1H avg 22.2, under 26.5 in 52/77 (68%) ·
- 2H avg 23.7, under 26.5 in 51/77 (66%). OT excluded.</div></div>
+<h2>Each bet, explained</h2>
+<div class="card bet">
+<div class="hd"><div><div class="n">Bet 1 · Moneyline</div><div class="pick">LAR -176</div></div><span class="dec d-no">✕ DON'T BET</span></div>
+<div class="what"><b>What this bet means:</b> You're betting the <b>Los Angeles Rams</b> win the game. Score doesn't matter. Price -176: risk $176 to win $100.</div>
+<div class="meter"><div class="mrow"><span>Our chance this bet wins</span><span class="big" style="color:#f59e0b">58%</span></div>
+<div class="track"><div class="fill" style="width:58.3%;background:linear-gradient(90deg,#f59e0b55,#f59e0b)"></div>
+<div class="half50" style="left:50%"></div><div class="need" style="left:60%"><span>need 60%</span></div></div>
+<div class="scale"><span>0%</span><span>50% = coin flip</span><span>100%</span></div></div>
+<div class="why"><h4>Why we're not betting it</h4><ul><li class="">We give it a <b>58% chance</b> to win. We only bet at <b>60% or higher</b>, so it's 2 points short.</li><li class="">Our stats say <b>49%</b>, but the sportsbook's odds say <b>61%</b>. That's a 12-point gap. When we disagree with the sportsbook by more than 10 points, the sportsbook is usually right (it prices in injuries, team quality and more than our stats see), so we stay out.</li><li class="">The price is too expensive. At -176 you risk $176 to win $100, which only pays off if it wins <b>64%</b> of the time. We think it wins 58%. The most we'd pay is <b>-140</b>.</li></ul></div>
+<div class="nums"><h4>The numbers behind it</h4><table><tr><td>Bills average points scored / allowed</td><td>31.8 / 26.8</td></tr><tr><td>Rams average points scored / allowed</td><td>21.3 / 20.8</td></tr><tr><td>Our projected score (season averages)</td><td>BUF 26.3 – LAR 24.0</td></tr><tr><td>Same, adjusted for opponents&#x27; strength</td><td>BUF 26.2 – LAR 25.0</td></tr><tr><td>Our projected winner, both methods (incl. 1.5 pts home edge)</td><td>Bills by 0.8 / Rams by 0.4</td></tr><tr><td>Sportsbook&#x27;s chance this team wins</td><td>61%</td></tr><tr><td>Our stats&#x27; chance</td><td>49%</td></tr></table></div>
+<div class="how">How we got 58%: the sportsbook&#x27;s odds say 61%, our stats say 49%. We start from the sportsbook and move a quarter of the way toward our stats, because the sportsbook is usually the better estimate.</div>
+</div><div class="card bet">
+<div class="hd"><div><div class="n">Bet 2 · Point spread</div><div class="pick">BUF +3.5</div></div><span class="dec d-no">✕ DON'T BET</span></div>
+<div class="what"><b>What this bet means:</b> The <b>Buffalo Bills</b> get a 3.5-point head start. You win if they <b>win the game, or lose by 3 or fewer</b>. Price -115: risk $115 to win $100.</div>
+<div class="meter"><div class="mrow"><span>Our chance this bet wins</span><span class="big" style="color:#f43f5e">54%</span></div>
+<div class="track"><div class="fill" style="width:53.5%;background:linear-gradient(90deg,#f43f5e55,#f43f5e)"></div>
+<div class="half50" style="left:50%"></div><div class="need" style="left:60%"><span>need 60%</span></div></div>
+<div class="scale"><span>0%</span><span>50% = coin flip</span><span>100%</span></div></div>
+<div class="why"><h4>Why we're not betting it</h4><ul><li class="">We give it a <b>54% chance</b> to win. We only bet at <b>60% or higher</b>, so it's 6 points short. That's close to a coin flip.</li><li class="okk">Our stats (61%) and the sportsbook (51%) are within 10 points of each other.</li><li class="okk">Price -115 is at or better than the -115 we'd need.</li></ul></div>
+<div class="nums"><h4>The numbers behind it</h4><table><tr><td>Bills average points scored / allowed</td><td>31.8 / 26.8</td></tr><tr><td>Rams average points scored / allowed</td><td>21.3 / 20.8</td></tr><tr><td>Our projected score (season averages)</td><td>BUF 26.3 – LAR 24.0</td></tr><tr><td>Same, adjusted for opponents&#x27; strength</td><td>BUF 26.2 – LAR 25.0</td></tr><tr><td>Our projected winner, both methods (incl. 1.5 pts home edge)</td><td>Bills by 0.8 / Rams by 0.4</td></tr><tr><td>Sportsbook expects</td><td>Rams by 3.5</td></tr></table></div>
+<div class="how">How we got 54%: the sportsbook&#x27;s odds say 51%, our stats say 61%. We start from the sportsbook and move a quarter of the way toward our stats, because the sportsbook is usually the better estimate.</div>
+</div><div class="card bet">
+<div class="hd"><div><div class="n">Bet 3 · Total points (over/under)</div><div class="pick">Under 54.5</div></div><span class="dec d-no">✕ DON'T BET</span></div>
+<div class="what"><b>What this bet means:</b> You win if <b>both teams combined score 54 or fewer</b> points. Price -105: risk $105 to win $100.</div>
+<div class="meter"><div class="mrow"><span>Our chance this bet wins</span><span class="big" style="color:#f43f5e">52%</span></div>
+<div class="track"><div class="fill" style="width:51.9%;background:linear-gradient(90deg,#f43f5e55,#f43f5e)"></div>
+<div class="half50" style="left:50%"></div><div class="need" style="left:60%"><span>need 60%</span></div></div>
+<div class="scale"><span>0%</span><span>50% = coin flip</span><span>100%</span></div></div>
+<div class="why"><h4>Why we're not betting it</h4><ul><li class="">We give it a <b>52% chance</b> to win. We only bet at <b>60% or higher</b>, so it's 8 points short. That's close to a coin flip.</li><li class="">Our stats say <b>61%</b>, but the sportsbook's odds say <b>49%</b>. That's a 12-point gap. When we disagree with the sportsbook by more than 10 points, the sportsbook is usually right (it prices in injuries, team quality and more than our stats see), so we stay out.</li><li class="okk">Price -105 is at or better than the -108 we'd need.</li></ul></div>
+<div class="nums"><h4>The numbers behind it</h4><table><tr><td>Bills average points scored / allowed</td><td>31.8 / 26.8</td></tr><tr><td>Rams average points scored / allowed</td><td>21.3 / 20.8</td></tr><tr><td>Our projected total (season averages)</td><td>50.3</td></tr><tr><td>Same, adjusted for opponents&#x27; strength</td><td>51.2</td></tr><tr class="tot"><td>Sportsbook&#x27;s line</td><td>54.5</td></tr></table></div>
+<div class="how">How we got 52%: the sportsbook&#x27;s odds say 49%, our stats say 61%. We start from the sportsbook and move a quarter of the way toward our stats, because the sportsbook is usually the better estimate.</div>
+</div><div class="card bet">
+<div class="hd"><div><div class="n">Bet 4 · 1st-half points under 26.5</div><div class="pick">Under 26.5</div></div><span class="dec d-no">✕ DON'T BET</span></div>
+<div class="what"><b>What this bet means:</b> You win if the <b>score at halftime adds up to 26 or fewer</b> points (both teams combined).</div>
+<div class="meter"><div class="mrow"><span>Our chance this bet wins</span><span class="big" style="color:#f43f5e">59%</span></div>
+<div class="track"><div class="fill" style="width:58.5%;background:linear-gradient(90deg,#f43f5e55,#f43f5e)"></div>
+<div class="half50" style="left:50%"></div><div class="need" style="left:65%"><span>need 65%</span></div></div>
+<div class="scale"><span>0%</span><span>50% = coin flip</span><span>100%</span></div></div>
+<div class="why"><h4>Why we're not betting it</h4><ul><li class="">We give it a <b>59% chance</b> to win. We only bet at <b>65% or higher</b>, so it's 6 points short.</li><li class="">Only <b>4 of these two teams' 8 games</b> stayed under 26.5 in this half. We want at least 6 of 8.</li><li class="inf">We don't have the sportsbook's price for this bet. If you find it, only take <b>-141 or better</b>.</li></ul></div>
+<div class="nums"><h4>The numbers behind it</h4><table><tr><td>Bills score 19.5 in 1st halves; Rams allow 8.3. Average →</td><td>Bills 13.9</td></tr><tr><td>Rams score 11.8 in 1st halves; Bills allow 13.8. Average →</td><td>Rams 12.8</td></tr><tr class="tot"><td>Projected 1st-half total (line is 26.5)</td><td>26.6</td></tr></table><div style="font-size:14px;margin-top:10px"><b>Bills games this season</b> (1st half total points):</div><div class="chips"><span class="chip c-o">@ HOU: 45 ✕</span><span class="chip c-o">vs DET: 37 ✕</span><span class="chip c-u">vs LAC: 20 ✓</span><span class="chip c-o">vs NE: 31 ✕</span></div><div style="font-size:14px;margin-top:10px"><b>Rams games this season</b> (1st half total points):</div><div class="chips"><span class="chip c-u">vs SF: 17 ✓</span><span class="chip c-u">vs NYG: 17 ✓</span><span class="chip c-u">@ DEN: 16 ✓</span><span class="chip c-o">@ PHI: 30 ✕</span></div><div style="font-size:14px;color:var(--mute)">Whole NFL this season: 52 of 77 games (68%) stayed under 26.5 in the 1st half.</div></div>
+<div class="how">How we got 59%: our stats say 50%, and 68% of NFL games this season stayed under. We average the two.</div>
+</div><div class="card bet">
+<div class="hd"><div><div class="n">Bet 5 · 2nd-half points under 26.5</div><div class="pick">Under 26.5</div></div><span class="dec d-no">✕ DON'T BET</span></div>
+<div class="what"><b>What this bet means:</b> You win if the <b>points scored in the 3rd and 4th quarters only</b> add up to 26 or fewer (both teams; overtime doesn't count).</div>
+<div class="meter"><div class="mrow"><span>Our chance this bet wins</span><span class="big" style="color:#f59e0b">64%</span></div>
+<div class="track"><div class="fill" style="width:63.5%;background:linear-gradient(90deg,#f59e0b55,#f59e0b)"></div>
+<div class="half50" style="left:50%"></div><div class="need" style="left:65%"><span>need 65%</span></div></div>
+<div class="scale"><span>0%</span><span>50% = coin flip</span><span>100%</span></div></div>
+<div class="why"><h4>Why we're not betting it</h4><ul><li class="">We give it a <b>64% chance</b> to win. We only bet at <b>65% or higher</b>, so it's 1 point short.</li><li class="okk">6 of these two teams' 8 games stayed under 26.5 in this half (we want 6+).</li><li class="inf">We don't have the sportsbook's price for this bet. If you find it, only take <b>-174 or better</b>.</li></ul></div>
+<div class="nums"><h4>The numbers behind it</h4><table><tr><td>Bills score 12.3 in 2nd halves; Rams allow 12.5. Average →</td><td>Bills 12.4</td></tr><tr><td>Rams score 9.5 in 2nd halves; Bills allow 13.0. Average →</td><td>Rams 11.3</td></tr><tr class="tot"><td>Projected 2nd-half total (line is 26.5)</td><td>23.6</td></tr></table><div style="font-size:14px;margin-top:10px"><b>Bills games this season</b> (2nd half total points):</div><div class="chips"><span class="chip c-u">@ HOU: 22 ✓</span><span class="chip c-o">vs DET: 35 ✕</span><span class="chip c-u">vs LAC: 20 ✓</span><span class="chip c-u">vs NE: 24 ✓</span></div><div style="font-size:14px;margin-top:10px"><b>Rams games this season</b> (2nd half total points):</div><div class="chips"><span class="chip c-u">vs SF: 17 ✓</span><span class="chip c-u">vs NYG: 17 ✓</span><span class="chip c-o">@ DEN: 40 ✕</span><span class="chip c-u">@ PHI: 14 ✓</span></div><div style="font-size:14px;color:var(--mute)">Whole NFL this season: 51 of 77 games (66%) stayed under 26.5 in the 2nd half.</div></div>
+<div class="how">How we got 64%: our stats say 61%, and 66% of NFL games this season stayed under. We average the two.</div>
+</div>
 
-<h2>Tale of the tape</h2>
-<div class="card"><div class="tape-row" style="font-weight:700"><div style="text-align:right;color:#5476b2">BUF</div><div></div><div style="color:#ffa300">LAR</div></div><div class="tape-row"><div class="tape-l"><span class="best">+0.191</span><div class="tb" style="width:100%;max-width:120px;background:#5476b2"></div></div><div class="tape-c">Off EPA/play</div><div class="tape-r"><div class="tb" style="width:29%;max-width:120px;background:#ffa300"></div><span class="">+0.026</span></div></div><div class="tape-row"><div class="tape-l"><span class="">+0.106</span><div class="tb" style="width:100%;max-width:120px;background:#5476b2"></div></div><div class="tape-c">Def EPA/play</div><div class="tape-r"><div class="tb" style="width:18%;max-width:120px;background:#ffa300"></div><span class="best">-0.122</span></div></div><div class="tape-row"><div class="tape-l"><span class="best">31.8</span><div class="tb" style="width:100%;max-width:120px;background:#5476b2"></div></div><div class="tape-c">Pts scored</div><div class="tape-r"><div class="tb" style="width:73%;max-width:120px;background:#ffa300"></div><span class="">21.2</span></div></div><div class="tape-row"><div class="tape-l"><span class="">26.8</span><div class="tb" style="width:100%;max-width:120px;background:#5476b2"></div></div><div class="tape-c">Pts allowed</div><div class="tape-r"><div class="tb" style="width:82%;max-width:120px;background:#ffa300"></div><span class="best">20.8</span></div></div><div class="tape-row"><div class="tape-l"><span class="best">6.5</span><div class="tb" style="width:100%;max-width:120px;background:#5476b2"></div></div><div class="tape-c">Yds/play</div><div class="tape-r"><div class="tb" style="width:94%;max-width:120px;background:#ffa300"></div><span class="">6.0</span></div></div><div class="tape-row"><div class="tape-l"><span class="">5.6</span><div class="tb" style="width:100%;max-width:120px;background:#5476b2"></div></div><div class="tape-c">Opp yds/play</div><div class="tape-r"><div class="tb" style="width:80%;max-width:120px;background:#ffa300"></div><span class="best">4.2</span></div></div><div class="tape-row"><div class="tape-l"><span class="">6.5</span><div class="tb" style="width:100%;max-width:120px;background:#5476b2"></div></div><div class="tape-c">Opp yds/att</div><div class="tape-r"><div class="tb" style="width:72%;max-width:120px;background:#ffa300"></div><span class="best">4.3</span></div></div><div class="tape-row"><div class="tape-l"><span class="best">58%</span><div class="tb" style="width:100%;max-width:120px;background:#5476b2"></div></div><div class="tape-c">3rd down %</div><div class="tape-r"><div class="tb" style="width:88%;max-width:120px;background:#ffa300"></div><span class="">49%</span></div></div><div class="tape-row"><div class="tape-l"><span class="best">36%</span><div class="tb" style="width:100%;max-width:120px;background:#5476b2"></div></div><div class="tape-c">Pressure %</div><div class="tape-r"><div class="tb" style="width:88%;max-width:120px;background:#ffa300"></div><span class="">31%</span></div></div><div class="tape-row"><div class="tape-l"><span class="">59.5</span><div class="tb" style="width:89%;max-width:120px;background:#5476b2"></div></div><div class="tape-c">Plays/game</div><div class="tape-r"><div class="tb" style="width:100%;max-width:120px;background:#ffa300"></div><span class="">69.0</span></div></div><div class="tape-row"><div class="tape-l"><span class="best">-0.50</span><div class="tb" style="width:100%;max-width:120px;background:#5476b2"></div></div><div class="tape-c">TO margin/g</div><div class="tape-r"><div class="tb" style="width:18%;max-width:120px;background:#ffa300"></div><span class="">-1.25</span></div></div><div class="cmp">EPA ranks (1 = best): BUF offense #2, defense #28 · LAR offense #11, defense #3. Bold = better side. EPA derived from nflverse play-by-play.</div></div>
+<h2>Odds in 10 seconds</h2>
+<div class="card"><ul class="clean">
+ <li><b>A minus number (−176)</b> is the favorite: you risk $176 to win $100 (you get $276 back if it wins).</li>
+ <li><b>A plus number (+148)</b> is the underdog: you risk $100 to win $148.</li>
+ <li><b>−110 / −115</b> on spreads and totals: risk about $110–115 to win $100. That extra cost is the sportsbook's cut.</li>
+ <li><b>Sportsbook's line here:</b> Rams favored by 3.5; total 54.5; moneyline BUF +148 / LAR -176.</li>
+</ul></div>
 
-<h2>Game logs</h2>
-<div class="grid g2"><div class="card"><h3 style="margin:0 0 6px;color:#5476b2">BUF game log</h3><div class="scroll"><table><tr><th>Game</th><th>Final</th><th>1H</th><th>2H</th></tr><tr><td>W1 @ HOU</td><td>36-31</td><td>24-21</td><td>12-10</td></tr><tr><td>W2 vs DET</td><td>41-31</td><td>27-10</td><td>14-21</td></tr><tr><td>W3 vs LAC</td><td>24-16</td><td>10-10</td><td>14-6</td></tr><tr><td>W4 vs NE</td><td>26-29</td><td>17-14</td><td>9-15</td></tr><tr><td><b>Avg (ESPN)</b></td><td>31.8-26.8</td><td>19.5-13.8</td><td>12.2-13.0</td></tr><tr><td>StatRankings</td><td>31.8-26.8</td><td>19.5-13.8</td><td>12.3-13.0</td></tr></table></div></div><div class="card"><h3 style="margin:0 0 6px;color:#ffa300">LAR game log</h3><div class="scroll"><table><tr><th>Game</th><th>Final</th><th>1H</th><th>2H</th></tr><tr><td>W1 vs SF</td><td>7-27</td><td>7-10</td><td>0-17</td></tr><tr><td>W2 vs NYG</td><td>28-6</td><td>14-3</td><td>14-3</td></tr><tr><td>W3 @ DEN</td><td>26-30</td><td>16-0</td><td>10-30</td></tr><tr><td>W4 @ PHI</td><td>24-20</td><td>10-20</td><td>14-0</td></tr><tr><td><b>Avg (ESPN)</b></td><td>21.2-20.8</td><td>11.8-8.2</td><td>9.5-12.5</td></tr><tr><td>StatRankings</td><td>21.3-20.8</td><td>11.8-8.3</td><td>9.5-11.0</td></tr></table></div></div></div>
-
-<h2>Injuries &amp; situation</h2>
-<div class="inj">
- <div class="card"><h3 style="margin:0 0 6px;color:#5476b2">BUF</h3><ul class="clean" style="list-style:none;padding:0"><li><span class="tag t-out">OUT</span>DT Ed Oliver (knee)</li><li><span class="tag t-out">OUT</span>WR Joshua Palmer (shoulder)</li><li><span class="tag t-q">Q</span>WR DJ Moore (shoulder AC)</li><li><span class="tag t-q">Q</span>CB Dee Alford (ankle)</li><li><span class="tag t-q">Q</span>DE Landon Jackson (knee)</li></ul></div>
- <div class="card"><h3 style="margin:0 0 6px;color:#ffa300">LAR</h3><ul class="clean" style="list-style:none;padding:0"><li><span class="tag t-out">IR</span>DE Myles Garrett (knee, placed Oct 10)</li><li><span class="tag t-out">IR</span>TE Terrance Ferguson</li><li><span class="tag t-q">Q</span>S Quentin Lake (hip), trending toward playing</li><li><span class="tag t-ok">CLEARED</span>DE Aaron Donald, TE Colby Parkinson, CB Jaylen Watson</li></ul></div>
+<h2>Things that could change this</h2>
+<div class="grid2">
+ <div class="card"><h3 style="margin:0 0 8px;color:#5476b2">Buffalo Bills injuries</h3><ul class="clean" style="list-style:none;padding:0"><li><span class="tag t-out">OUT</span>DT Ed Oliver (knee)</li><li><span class="tag t-out">OUT</span>WR Joshua Palmer (shoulder)</li><li><span class="tag t-q">MAYBE</span>WR DJ Moore (shoulder AC)</li><li><span class="tag t-q">MAYBE</span>CB Dee Alford (ankle)</li><li><span class="tag t-q">MAYBE</span>DE Landon Jackson (knee)</li></ul></div>
+ <div class="card"><h3 style="margin:0 0 8px;color:#ffa300">Los Angeles Rams injuries</h3><ul class="clean" style="list-style:none;padding:0"><li><span class="tag t-out">OUT (IR)</span>DE Myles Garrett (knee, placed Oct 10)</li><li><span class="tag t-out">OUT (IR)</span>TE Terrance Ferguson</li><li><span class="tag t-q">MAYBE</span>S Quentin Lake (hip), trending toward playing</li><li><span class="tag t-ok">CLEARED</span>DE Aaron Donald, TE Colby Parkinson, CB Jaylen Watson</li></ul></div>
 </div>
 <div class="card" style="margin-top:12px"><ul class="clean">
- <li><b>QBs:</b> Josh Allen (BUF) and Matthew Stafford (LAR) started all 4 games; neither on the injury report.</li><li><b>Weather:</b> Roofed stadium. ESPN/AccuWeather: 68F, gusts 16 mph outside; not a factor indoors.</li>
- <li><b>Opening line:</b> LAR -2.5 · ML LAR -140 / BUF +115 · Total 53.5</li>
- <li>Rest: both last played Sun Oct 4, so rest is even.</li><li>Travel: BUF goes cross-country, but it&#x27;s a night kickoff (not an early body-clock game).</li><li>Non-division, primetime: leans slightly under.</li><li>Small sample: both teams have played 4 games (no LOW CONFIDENCE flag, which is &lt;4).</li>
- <li><b>Lines source:</b> User: ML and spread/total numbers. Juice on spread/total not given → DraftKings via ESPN pickcenter.</li></ul></div>
-<h2>Kills it</h2><div class="card"><ul class="clean"><li><b>2H U26.5:</b> A shootout late: LAR&#x27;s 2nd half at DEN produced 40 points.</li><li><b>BUF +3.5:</b> LAR&#x27;s top-3 defense holds BUF&#x27;s offense down and the Rams win by a TD.</li></ul></div>
-<h2>Bets we'd make</h2><div class="card scroll"><table><tr><th>#</th><th>Bet</th><th>Chance</th><th>Need</th></tr><tr><td colspan="4" style="text-align:center;color:var(--mute)">None qualify.</td></tr></table></div>
-<h2>Parlays</h2><div class="card scroll"><table><tr><th>Parlay</th><th>Combined</th></tr><tr><td colspan="2" style="text-align:center;color:var(--mute)">None. No legs at 65%+ that qualify.</td></tr></table></div>
-<h2>Not checked</h2><div class="card"><ul class="clean"><li>pro-football-reference.com and footballdb.com returned HTTP 403, so ESPN&#x27;s scoreboard API was used for quarter scores and box scores.</li><li>rbsdm.com is JavaScript-only, so EPA was derived from nflverse play-by-play instead.</li><li>Next Gen Stats, Sharp Football, ESPN win rates, Ourlads, referee crew: not pulled.</li><li>1H/2H under 26.5 prices not provided, so they can&#x27;t be compared to the Need price.</li><li>Inactives (~90 min before kickoff): recheck DJ Moore and Quentin Lake.</li></ul></div>
-<h2>Sources</h2><div class="card"><ul class="clean"><li><a href="https://www.statrankings.com/nfl/teams/scoring-offense/points-per-game">StatRankings team stats (26 pages)</a></li><li><a href="https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates=2026&amp;seasontype=2&amp;week=5">ESPN scoreboard API (quarter scores, odds, injuries)</a></li><li><a href="https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2026.csv.gz">nflverse play-by-play 2026 (EPA)</a></li><li><a href="https://www.therams.com/news/rams-injury-report-week-5-2026-vs-bills-aaron-donald-colby-parkinson-and-jaylen-watson-good-to-go-for-monday-night-football">Rams Week 5 injury report</a></li><li><a href="https://www.wgrz.com/article/sports/nfl/bills/bills-rule-out-ed-oliver-joshua-palmer-ahead-of-rams-game/71-25bfe831-9e48-4f90-a84c-b6d122a3805e">WGRZ: Bills rule out Oliver, Palmer</a></li><li><a href="https://www.buffalorumblings.com/buffalo-bills-odds/142026/bills-vs-rams-odds-week-5-opening-lines-point-spread-total">Buffalo Rumblings: opening lines</a></li><li><a href="https://www.covers.com/nfl/week-5-odds-opening-lines-2026">Covers: Week 5 odds</a></li></ul></div>
-<h2>How the chance is computed</h2><div class="card"><div class="why" style="margin:0">
-Model = average of RAW and schedule-adjusted normal-CDF chances (σ 13.3 margin, 13.5 total, 10 / 10.5 halves).
-Final = book fair + 25% × (model − fair). Halves: Final = (model + league rate) / 2.
-Bet only if Final ≥ 60% (≥ 65% halves, plus team count ≥ 75%), no ⚠ DISAGREE (|model − fair| &gt; 10 pts), and price at or better than Need. All numbers derived by <code>scripts/template_a.py</code>; see <code>result.json</code>.</div></div>
-<div class="foot">Generated 2026-10-12 03:12 UTC · Run date 2026-10-11 · No template guarantees a win. Track every bet against the closing line.</div></div></body></html>
+ <li><b>Quarterbacks:</b> Josh Allen (BUF) and Matthew Stafford (LAR) started all 4 games; neither on the injury report.</li>
+ <li><b>Line movement:</b> Spread -2.5 → -3.5, ML -140 → -176, total 53.5 → 54.5 (toward LAR and the over) even after Myles Garrett went to IR.</li>
+ <li><b>Weather:</b> Roofed stadium. ESPN/AccuWeather: 68F, gusts 16 mph outside; not a factor indoors.</li>
+ <li><b>Final injury news</b> comes out about 90 minutes before kickoff. If a starting QB is suddenly out, everything here is void.</li>
+</ul></div>
+
+<details><summary>More detail (for the curious)</summary><div>
+<div class="grid2"><div class="card"><h3 style="margin:0 0 6px">Buffalo Bills game by game</h3><table class="plain"><tr><th>Game</th><th>Final</th><th>1st half</th><th>2nd half</th></tr><tr><td>Wk 1 @ HOU</td><td>36–31</td><td>24–21</td><td>12–10</td></tr><tr><td>Wk 2 vs DET</td><td>41–31</td><td>27–10</td><td>14–21</td></tr><tr><td>Wk 3 vs LAC</td><td>24–16</td><td>10–10</td><td>14–6</td></tr><tr><td>Wk 4 vs NE</td><td>26–29</td><td>17–14</td><td>9–15</td></tr><tr><td><b>Average</b></td><td>31.8–26.8</td><td>19.5–13.8</td><td>12.3–13.0</td></tr><tr><td style="color:var(--mute)">StatRankings check</td><td>31.8–26.8</td><td>19.5–13.8</td><td>12.3–13.0</td></tr></table><div style="font-size:12px;color:var(--mute);margin-top:6px">Scores shown as BUF–opponent.</div></div><div class="card"><h3 style="margin:0 0 6px">Los Angeles Rams game by game</h3><table class="plain"><tr><th>Game</th><th>Final</th><th>1st half</th><th>2nd half</th></tr><tr><td>Wk 1 vs SF</td><td>7–27</td><td>7–10</td><td>0–17</td></tr><tr><td>Wk 2 vs NYG</td><td>28–6</td><td>14–3</td><td>14–3</td></tr><tr><td>Wk 3 @ DEN</td><td>26–30</td><td>16–0</td><td>10–30</td></tr><tr><td>Wk 4 @ PHI</td><td>24–20</td><td>10–20</td><td>14–0</td></tr><tr><td><b>Average</b></td><td>21.3–20.8</td><td>11.8–8.3</td><td>9.5–12.5</td></tr><tr><td style="color:var(--mute)">StatRankings check</td><td>21.3–20.8</td><td>11.8–8.3</td><td>9.5–11.0</td></tr></table><div style="font-size:12px;color:var(--mute);margin-top:6px">Scores shown as LAR–opponent.</div></div></div>
+<div class="card" style="margin-top:12px"><h3 style="margin:0 0 6px">Team comparison</h3><table class="plain"><tr><th>Stat</th><th>BUF</th><th>LAR</th></tr><tr><td>Offense EPA/play (higher = better; rank)</td><td>+0.191 (#2)</td><td>+0.026 (#11)</td></tr><tr><td>Defense EPA/play (lower = better; rank)</td><td>+0.106 (#28)</td><td>-0.122 (#3)</td></tr><tr><td>Yards per play</td><td>6.5</td><td>6.0</td></tr><tr><td>Yards per play allowed</td><td>5.6</td><td>4.2</td></tr><tr><td>Pass yards per attempt allowed</td><td>6.5</td><td>4.3</td></tr><tr><td>3rd-down conversion %</td><td>57.8%</td><td>49.0%</td></tr><tr><td>Pressure rate (defense)</td><td>35.9%</td><td>30.8%</td></tr><tr><td>Plays per game</td><td>59.5</td><td>69.0</td></tr><tr><td>Turnover margin per game</td><td>-0.50</td><td>-1.25</td></tr></table><div style="font-size:12px;color:var(--mute);margin-top:6px">EPA = expected points added per play vs an average team (derived from nflverse play-by-play).</div></div>
+<div class="card" style="margin-top:12px"><h3 style="margin:0 0 6px">Game situation</h3><ul class="clean"><li>Rest: both last played Sun Oct 4, so rest is even.</li><li>Travel: BUF goes cross-country, but it&#x27;s a night kickoff (not an early body-clock game).</li><li>Non-division, primetime: leans slightly under.</li><li>Small sample: both teams have played 4 games (no LOW CONFIDENCE flag, which is &lt;4).</li>
+<li>Opening line: LAR -2.5 · ML LAR -140 / BUF +115 · Total 53.5</li><li>Where the lines came from: User: ML and spread/total numbers. Juice on spread/total not given → DraftKings via ESPN pickcenter.</li></ul></div>
+</div></details>
+
+<details><summary>Words used on this page</summary><div class="card"><dl class="gl"><dt>Moneyline</dt><dd>Bet on who wins the game. Nothing else matters.</dd><dt>Point spread</dt><dd>The favorite has to win by more than the line; the underdog can lose by less than it and still win you the bet.</dd><dt>Total (over/under)</dt><dd>Bet on whether both teams&#x27; combined points go over or under a number.</dd><dt>Half bets</dt><dd>Same idea, counting only the points scored in the 1st half (or only the 2nd half).</dd><dt>Sportsbook&#x27;s chance</dt><dd>What the odds say the chance is, with the sportsbook&#x27;s cut removed.</dd><dt>Our stats&#x27; chance</dt><dd>What this season&#x27;s scoring numbers alone say.</dd><dt>Our chance</dt><dd>The number we decide on: mostly the sportsbook&#x27;s chance, nudged a quarter of the way toward our stats.</dd><dt>Need price</dt><dd>The worst odds still worth taking. Anything more expensive is a bad deal even if you think it wins.</dd></dl></div></details>
+<details><summary>What we couldn't check · sources</summary><div class="card">
+<ul class="clean"><li>pro-football-reference.com and footballdb.com returned HTTP 403, so ESPN&#x27;s scoreboard API was used for quarter scores and box scores.</li><li>rbsdm.com is JavaScript-only, so EPA was derived from nflverse play-by-play instead.</li><li>Next Gen Stats, Sharp Football, ESPN win rates, Ourlads, referee crew: not pulled.</li><li>1H/2H under 26.5 prices not provided, so they can&#x27;t be compared to the Need price.</li><li>Inactives (~90 min before kickoff): recheck DJ Moore and Quentin Lake.</li></ul>
+<h3 style="margin:14px 0 6px">Sources</h3><ul class="clean"><li><a href="https://www.statrankings.com/nfl/teams/scoring-offense/points-per-game">StatRankings team stats (26 pages)</a></li><li><a href="https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates=2026&amp;seasontype=2&amp;week=5">ESPN scoreboard API (quarter scores, odds, injuries)</a></li><li><a href="https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2026.csv.gz">nflverse play-by-play 2026 (EPA)</a></li><li><a href="https://www.therams.com/news/rams-injury-report-week-5-2026-vs-bills-aaron-donald-colby-parkinson-and-jaylen-watson-good-to-go-for-monday-night-football">Rams Week 5 injury report</a></li><li><a href="https://www.wgrz.com/article/sports/nfl/bills/bills-rule-out-ed-oliver-joshua-palmer-ahead-of-rams-game/71-25bfe831-9e48-4f90-a84c-b6d122a3805e">WGRZ: Bills rule out Oliver, Palmer</a></li><li><a href="https://www.buffalorumblings.com/buffalo-bills-odds/142026/bills-vs-rams-odds-week-5-opening-lines-point-spread-total">Buffalo Rumblings: opening lines</a></li><li><a href="https://www.covers.com/nfl/week-5-odds-opening-lines-2026">Covers: Week 5 odds</a></li></ul></div></details>
+<div class="foot">Generated 2026-10-12 03:28 UTC · Research date 2026-10-11<br>
+This is research, not a guarantee. Never bet money you can't afford to lose.</div></div></body></html>

@@ -47,6 +47,24 @@ sometimes 1H/2H under prices). Then:
 8. **Grading**: when Rashad sends final scores ("grade it"), record W/L/Push per market in
    `runs/<run>/grades.json` (not built yet; see Roadmap) and push.
 
+## Report audience and layout (Rashad's requirement, 2026-10-11)
+
+Write the report for **someone who has never placed a sports bet**. They should know instantly what
+to do and why. `build_report.py` renders, in this order:
+1. Team banner, then a big **"What to do"** box: "Don't bet this game", or "Bet N of the 5" listing
+   each bet and the worst price to accept.
+2. "How to read this page": 4 short steps (chance → 60/65% bar → extra checks → green/red).
+3. "The 5 bets at a glance": the chat's Table 1 as a simple list (bet, chance, need, ✓ BET / ✕ SKIP).
+4. One card per bet: **what the bet means** in plain words (incl. "risk $X to win $Y"), a chance
+   meter with the cutoff line, **why we're not betting it** (one plain sentence per failed rule,
+   with the actual numbers), **the numbers behind it** (for halves: each team's half points
+   scored/allowed → expected points → projected total, plus every game's half total ✓/✕), and
+   "how we got X%".
+5. Odds explained, injuries/QB/line movement, then collapsed "More detail", glossary, sources.
+
+Keep jargon (EPA, de-vig, DISAGREE, RAW/ADJ) out of the main view, or explain it inline.
+Numbers on the page round half up (`r1()`, `pct()`) so they match the chat tables.
+
 ## Repo layout
 
 ```

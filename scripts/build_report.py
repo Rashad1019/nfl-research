@@ -3,11 +3,16 @@
 Usage:
     python3 scripts/build_report.py runs/<run-folder>
 
+AUDIENCE: someone who has never placed a sports bet. The page must say, at the top, exactly what
+to do, and every bet must explain in plain English what it is, our chance, the decision, why, and
+the numbers behind it (laid out like the chat tables). Jargon goes in the collapsed "details" area.
+
 Pure static HTML + inline CSS/SVG (only external asset: Google Fonts). Phone-first, light/dark.
 """
 import glob
 import html
 import json
+import math
 import os
 import sys
 from datetime import datetime, timezone
@@ -23,8 +28,28 @@ def pct(p):
     return int(p * 100 + 0.5)
 
 
+def r1(x):
+    """One decimal, rounded half up (Python's default would show 8.25 as 8.2)."""
+    return f"{math.floor(x * 10 + 0.5 + 1e-9) / 10:.1f}"
+
+
 def odds(o):
     return "—" if o is None else (f"+{o}" if o > 0 else str(o))
+
+
+def implied(o):
+    return abs(o) / (abs(o) + 100) if o < 0 else 100 / (o + 100)
+
+
+def risk_win(o):
+    """Plain-English meaning of an American price."""
+    if o is None:
+        return ""
+    return f"risk ${abs(o)} to win $100" if o < 0 else f"risk $100 to win ${o}"
+
+
+def nick(t):
+    return name(t).split()[-1]  # "Bills", "Rams", "49ers"
 
 
 def _rgb(h):
@@ -65,10 +90,10 @@ CSS = """
 :root[data-theme="light"]{--bg:#f4f6fb;--panel:#ffffff;--panel2:#eef2fb;--ink:#0f172a;--mute:#5b6787;--line:#dfe5f2;--track:#e6ebf5;--shadow:0 8px 24px rgba(15,23,42,.08)}
 :root[data-theme="dark"]{--bg:#0b1020;--panel:#131a2e;--panel2:#1a2340;--ink:#eef2ff;--mute:#9aa6c8;--line:#2a3558;--track:#222c4a}
 *{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-.wrap{max-width:960px;margin:0 auto;padding:16px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:16px}
 h1,h2,h3,.num{font-family:Oswald,Inter,sans-serif;letter-spacing:.3px}
-h2{font-size:20px;margin:28px 0 12px;display:flex;align-items:center;gap:10px}
+h2{font-size:21px;margin:30px 0 12px;display:flex;align-items:center;gap:10px}
 h2:before{content:"";width:6px;height:22px;border-radius:3px;background:linear-gradient(var(--a),var(--h))}
 a{color:var(--info)}
 .hero{border-radius:22px;overflow:hidden;box-shadow:var(--shadow);position:relative;color:#fff;
@@ -77,155 +102,240 @@ background:linear-gradient(115deg,var(--a1) 0%,var(--a1) 42%,var(--h1) 58%,var(-
 linear-gradient(115deg,transparent 46%,rgba(255,255,255,.25) 50%,transparent 54%)}
 .hero-in{position:relative;z-index:1;padding:22px 20px 18px}
 .stripe{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;height:8px}
-.kick{font-size:12px;text-transform:uppercase;letter-spacing:2px;opacity:.85}
+.kick{font-size:12px;text-transform:uppercase;letter-spacing:2px;opacity:.9}
 .vs{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;margin:14px 0 6px}
-.tm{text-align:center}.tm .ab{font:700 46px/1 Oswald,sans-serif}.tm .nm{font-size:12px;opacity:.85}
-.tm .rec{display:inline-block;margin-top:6px;font-size:11px;padding:2px 8px;border-radius:99px;background:rgba(0,0,0,.28)}
+.tm{text-align:center}.tm .ab{font:700 46px/1 Oswald,sans-serif}.tm .nm{font-size:13px;opacity:.9}
+.tm .rec{display:inline-block;margin-top:6px;font-size:12px;padding:2px 9px;border-radius:99px;background:rgba(0,0,0,.28)}
 .at{font:600 18px Oswald,sans-serif;opacity:.8}
-.chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:12px}
-.chip{font-size:12px;padding:5px 10px;border-radius:99px;background:rgba(0,0,0,.32);backdrop-filter:blur(4px)}
-.verdict{margin:16px 0 0;border-radius:16px;padding:14px 16px;display:flex;gap:12px;align-items:center;
-background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow)}
-.verdict .big{font:700 22px Oswald,sans-serif}.verdict .ic{font-size:28px}
-.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px 14px 12px;box-shadow:var(--shadow)}
-.mk-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
-.mk-bet{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--mute)}
-.mk-pick{font:600 20px Oswald,sans-serif}
-.mk-ch{font:700 34px/1 Oswald,sans-serif;text-align:right}
-.badge{display:inline-block;font-size:11px;font-weight:700;padding:3px 8px;border-radius:99px;letter-spacing:.5px}
-.b-go{background:rgba(34,197,94,.16);color:var(--go)}.b-no{background:rgba(244,63,94,.14);color:var(--no)}
-.b-warn{background:rgba(245,158,11,.16);color:var(--warn)}
-.bar{position:relative;height:14px;border-radius:99px;background:var(--track);margin:14px 0 6px;overflow:visible}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:var(--shadow)}
+.todo{border-radius:20px;padding:20px;margin-top:16px;border:2px solid}
+.todo.no{background:linear-gradient(135deg,rgba(244,63,94,.16),rgba(244,63,94,.04));border-color:rgba(244,63,94,.55)}
+.todo.go{background:linear-gradient(135deg,rgba(34,197,94,.18),rgba(34,197,94,.04));border-color:rgba(34,197,94,.6)}
+.todo .lbl{font-size:12px;text-transform:uppercase;letter-spacing:2px;color:var(--mute);font-weight:700}
+.todo .big{font:700 32px/1.15 Oswald,sans-serif;margin:4px 0 8px}
+.todo.no .big{color:var(--no)}.todo.go .big{color:var(--go)}
+.todo p{margin:6px 0}
+.steps{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.step{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:14px}
+.step .st{display:block;font:600 16px Oswald,sans-serif;margin-bottom:2px}
+.sum{width:100%;border-collapse:separate;border-spacing:0 8px;font-size:15px}
+.sum td{background:var(--panel);padding:12px 10px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.sum td:first-child{border-left:1px solid var(--line);border-radius:12px 0 0 12px}
+.sum td:last-child{border-right:1px solid var(--line);border-radius:0 12px 12px 0;text-align:right}
+.sum th{font-size:11px;color:var(--mute);text-transform:uppercase;letter-spacing:1px;text-align:left;padding:0 10px}
+.sum th:last-child{text-align:right}
+.sum .ch{font:700 20px Oswald,sans-serif}
+.dec{display:inline-block;font-weight:800;font-size:12px;padding:5px 10px;border-radius:99px;letter-spacing:.6px;white-space:nowrap}
+.d-no{background:rgba(244,63,94,.15);color:var(--no)}.d-go{background:rgba(34,197,94,.18);color:var(--go)}
+.bet{margin-top:16px;border-left:6px solid var(--no)}.bet.ok{border-left-color:var(--go)}
+.bet .hd{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.bet .n{font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--mute);font-weight:700}
+.bet .pick{font:700 24px/1.2 Oswald,sans-serif;margin:2px 0}
+.what{background:var(--panel2);border-radius:12px;padding:10px 12px;margin:12px 0;font-size:15px}
+.what b{color:var(--info)}
+.meter{margin:14px 0 4px}
+.mrow{display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px}
+.mrow .big{font:700 26px/1 Oswald,sans-serif}
+.track{position:relative;height:18px;border-radius:99px;background:var(--track)}
 .fill{position:absolute;left:0;top:0;bottom:0;border-radius:99px}
-.cut{position:absolute;top:-5px;bottom:-5px;width:0;border-left:2px dashed var(--ink);opacity:.55}
-.dot{position:absolute;top:50%;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;border:2px solid var(--panel)}
-.dia{position:absolute;top:50%;width:12px;height:12px;margin:-6px 0 0 -6px;transform:rotate(45deg);border:2px solid var(--panel)}
-.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:var(--mute)}
-.legend i{display:inline-block;width:9px;height:9px;margin-right:4px;vertical-align:-1px}
-.kv{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}
-.kv div{background:var(--panel2);border-radius:10px;padding:6px 8px}.kv b{display:block;font:600 16px Oswald,sans-serif}
-.kv span{font-size:10px;color:var(--mute);text-transform:uppercase;letter-spacing:1px}
-.why{font-size:13px;color:var(--mute);margin-top:8px}
-.score{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.sc{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow)}
-.sc h3{margin:0 0 8px;font-size:13px;color:var(--mute);text-transform:uppercase;letter-spacing:1.5px}
-.sline{display:flex;align-items:center;justify-content:space-between;margin:4px 0}
-.sline .num{font-size:30px;font-weight:700}
-.pill{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px}
-.cmp{font-size:12px;color:var(--mute);border-top:1px solid var(--line);padding-top:8px;margin-top:8px}
-table{width:100%;border-collapse:collapse;font-size:13px}
-th,td{padding:7px 6px;text-align:right;border-bottom:1px solid var(--line)}th:first-child,td:first-child{text-align:left}
-th{color:var(--mute);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:1px}
-.scroll{overflow-x:auto}
-.tape-row{display:grid;grid-template-columns:1fr 92px 1fr;align-items:center;gap:8px;margin:7px 0;font-size:13px}
-.tape-l,.tape-r{display:flex;align-items:center;gap:6px}.tape-l{justify-content:flex-end}
-.tape-c{text-align:center;font-size:11px;color:var(--mute);text-transform:uppercase;letter-spacing:.8px;line-height:1.2}
-.tb{height:10px;border-radius:99px}
-.best{font-weight:700}
-ul.clean{margin:0;padding-left:18px}ul.clean li{margin:4px 0}
-.inj{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-.tag{font-size:10px;font-weight:700;padding:2px 6px;border-radius:6px;margin-right:6px}
+.need{position:absolute;top:-6px;bottom:-6px;border-left:3px solid var(--ink)}
+.need span{position:absolute;top:-20px;left:-30px;width:60px;text-align:center;font-size:11px;font-weight:700;color:var(--ink)}
+.half50{position:absolute;top:0;bottom:0;border-left:1px dashed var(--mute);opacity:.6}
+.scale{display:flex;justify-content:space-between;font-size:11px;color:var(--mute);margin-top:4px}
+.why h4,.nums h4{margin:16px 0 6px;font:600 15px Oswald,sans-serif;letter-spacing:.5px;text-transform:uppercase}
+.why ul{margin:0;padding:0;list-style:none}
+.why li{position:relative;padding:8px 10px 8px 36px;margin:6px 0;border-radius:10px;background:rgba(244,63,94,.07);font-size:15px}
+.why li:before{content:"✕";position:absolute;left:12px;top:8px;color:var(--no);font-weight:800}
+.why li.okk{background:rgba(34,197,94,.08)}.why li.okk:before{content:"✓";color:var(--go)}
+.why li.inf{background:rgba(56,189,248,.09)}.why li.inf:before{content:"i";color:var(--info);font-family:Georgia,serif}
+.nums table{width:100%;border-collapse:collapse;font-size:14px}
+.nums td{padding:7px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+.nums td:last-child{text-align:right;font-weight:700;white-space:nowrap}
+.nums tr.tot td{border-top:2px solid var(--ink);font-size:15px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.chip{font-size:13px;padding:4px 9px;border-radius:99px;font-weight:600}
+.c-u{background:rgba(34,197,94,.15);color:var(--go)}.c-o{background:rgba(244,63,94,.13);color:var(--no)}
+.how{font-size:13px;color:var(--mute);margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
+.grid2{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+ul.clean{margin:0;padding-left:18px}ul.clean li{margin:5px 0}
+.tag{font-size:10px;font-weight:800;padding:2px 6px;border-radius:6px;margin-right:6px}
 .t-out{background:rgba(244,63,94,.15);color:var(--no)}.t-q{background:rgba(245,158,11,.16);color:var(--warn)}
 .t-ok{background:rgba(34,197,94,.15);color:var(--go)}
+details{margin-top:14px}summary{cursor:pointer;font:600 17px Oswald,sans-serif;padding:12px 16px;background:var(--panel);
+border:1px solid var(--line);border-radius:14px;list-style:none}summary::-webkit-details-marker{display:none}
+summary:after{content:" ▸";color:var(--mute)}details[open] summary:after{content:" ▾"}
+details>div{margin-top:10px}
+table.plain{width:100%;border-collapse:collapse;font-size:13px}
+table.plain th,table.plain td{padding:7px 6px;text-align:right;border-bottom:1px solid var(--line)}
+table.plain th:first-child,table.plain td:first-child{text-align:left}
+table.plain th{color:var(--mute);font-size:11px;text-transform:uppercase;letter-spacing:1px}
+.gl dt{font-weight:700;margin-top:10px}.gl dd{margin:2px 0 0;color:var(--mute);font-size:14px}
 .foot{color:var(--mute);font-size:12px;margin:28px 0 10px;text-align:center}
-svg text{fill:var(--mute);font:10px Inter,sans-serif}
-@media (max-width:520px){.tm .ab{font-size:38px}.mk-ch{font-size:30px}.score{grid-template-columns:1fr}.kv b{font-size:15px}}
+@media (max-width:520px){.tm .ab{font-size:38px}.todo .big{font-size:27px}.bet .pick{font-size:21px}.sum{font-size:14px}}
 """
 
-
-def chance_bar(m, acc):
-    cut = 0.65 if m["bet"].startswith(("1H", "2H")) else 0.60
-    f = m["final"]
-    col = "#22c55e" if m["qualifies"] else ("#f59e0b" if f >= cut - 0.05 else acc)  # hex: gets an alpha suffix below
-    marks = f'<div class="fill" style="width:{f*100:.1f}%;background:linear-gradient(90deg,{col}66,{col})"></div>'
-    marks += f'<div class="cut" style="left:{cut*100}%" title="cutoff {pct(cut)}%"></div>'
-    ref = m.get("fair", m.get("league"))
-    marks += f'<div class="dia" style="left:{ref*100:.1f}%;background:var(--info)" title="{"book fair" if "fair" in m else "league rate"} {pct(ref)}%"></div>'
-    marks += f'<div class="dot" style="left:{m["model"]*100:.1f}%;background:var(--vio)" title="model {pct(m["model"])}%"></div>'
-    return f'<div class="bar">{marks}</div>'
+BET_TITLES = {"ML": "Moneyline", "Spread": "Point spread", "O/U": "Total points (over/under)",
+              "1H U26.5": "1st-half points under 26.5", "2H U26.5": "2nd-half points under 26.5"}
 
 
-def market_card(m, acc, why):
-    half = m["bet"].startswith(("1H", "2H"))
-    if m["qualifies"]:
-        badge = '<span class="badge b-go">✓ BET</span>'
-    else:
-        badge = '<span class="badge b-no">PASS</span>'
-    if m["disagree"]:
-        badge += ' <span class="badge b-warn">⚠ DISAGREE</span>'
-    ref_lbl = "League" if half else "Book fair"
-    ref = m["league"] if half else m["fair"]
-    third = (f'<div><span>Team count</span><b>{m["team_count"]}/{m["team_games"]}</b></div>' if half
-             else f'<div><span>Book price</span><b>{odds(m["price"])}</b></div>')
-    blocked = "" if m["qualifies"] else f'<div class="why"><b>Blocked by:</b> {esc(", ".join(m["blocked_by"]))}</div>'
-    return f"""<div class="card">
- <div class="mk-top"><div><div class="mk-bet">{esc(m['bet'])}</div><div class="mk-pick">{esc(m['pick'])}</div>{badge}</div>
- <div class="mk-ch num">{pct(m['final'])}%</div></div>
- {chance_bar(m, acc)}
- <div class="legend"><span><i style="background:var(--vio);border-radius:50%"></i>Model {pct(m['model'])}%</span>
- <span><i style="background:var(--info);transform:rotate(45deg)"></i>{ref_lbl} {pct(ref)}%</span>
- <span><i style="border-left:2px dashed var(--ink);width:2px"></i>Cutoff {65 if half else 60}%</span></div>
- <div class="kv"><div><span>Final</span><b>{pct(m['final'])}%</b></div><div><span>Need</span><b>{odds(m['need'])}</b></div>{third}</div>
- <div class="why">{esc(why)}</div>{blocked}
-</div>"""
+def is_half(m):
+    return m["bet"].startswith(("1H", "2H"))
 
 
-def half_chart(rows, key, acc_t, label):
-    """Per-game half totals (both teams) vs the 26.5 line."""
-    W, Hh, pad = 300, 130, 22
-    vals = [r[f"{key}f"] + r[f"{key}a"] for r in rows]
-    top = max(max(vals), 30) + 4
-    bw = (W - pad * 2) / len(vals)
-    y = lambda v: Hh - 18 - (v / top) * (Hh - 30)
-    s = [f'<svg viewBox="0 0 {W} {Hh}" width="100%" role="img" aria-label="{esc(label)}">']
-    for i, (r, v) in enumerate(zip(rows, vals)):
-        x = pad + i * bw + bw * 0.18
-        w = bw * 0.64
-        under = v < 26.5
-        c = "var(--go)" if under else "var(--no)"
-        own = r[f"{key}f"]
-        s.append(f'<rect x="{x:.1f}" y="{y(v):.1f}" width="{w:.1f}" height="{y(0)-y(v):.1f}" rx="5" fill="{c}" opacity=".25"/>')
-        s.append(f'<rect x="{x:.1f}" y="{y(own):.1f}" width="{w:.1f}" height="{y(0)-y(own):.1f}" rx="5" fill="{acc_t}"/>')
-        s.append(f'<text x="{x+w/2:.1f}" y="{y(v)-4:.1f}" text-anchor="middle" style="fill:{c};font-weight:700">{v:g}</text>')
-        s.append(f'<text x="{x+w/2:.1f}" y="{Hh-4}" text-anchor="middle">W{r["wk"]} {"vs" if r["home"] else "@"} {r["opp"]}</text>')
-    s.append(f'<line x1="{pad-6}" x2="{W-pad+6}" y1="{y(26.5):.1f}" y2="{y(26.5):.1f}" stroke="var(--warn)" stroke-width="2" stroke-dasharray="5 4"/>')
-    s.append(f'<text x="{W-pad+4}" y="{y(26.5)-4:.1f}" text-anchor="end" style="fill:var(--warn)">26.5</text></svg>')
-    return "".join(s)
+def cutoff(m):
+    return 0.65 if is_half(m) else 0.60
 
 
-def tape(r, acc_a, acc_h):
+# ---------------- plain-English text ----------------
+
+def what_it_is(m, r):
     A, H = r["away"], r["home"]
-    TA, TH = r["teams"][A], r["teams"][H]
-    num = lambda s: float(str(s).rstrip("%")) if s not in (None, "-", "") else None
-    rows = [  # label, away value, home value, higher_is_better, fmt
-        ("Off EPA/play", TA["epa"]["off"]["epa"], TH["epa"]["off"]["epa"], True, lambda v: f"{v:+.3f}"),
-        ("Def EPA/play", TA["epa"]["def"]["epa"], TH["epa"]["def"]["epa"], False, lambda v: f"{v:+.3f}"),
-        ("Pts scored", TA["espn"]["pf"], TH["espn"]["pf"], True, lambda v: f"{v:.1f}"),
-        ("Pts allowed", TA["espn"]["pa"], TH["espn"]["pa"], False, lambda v: f"{v:.1f}"),
-        ("Yds/play", num(TA["stats"]["ypp"]), num(TH["stats"]["ypp"]), True, lambda v: f"{v:.1f}"),
-        ("Opp yds/play", num(TA["stats"]["opp_ypp"]), num(TH["stats"]["opp_ypp"]), False, lambda v: f"{v:.1f}"),
-        ("Opp yds/att", num(TA["stats"]["opp_ypa"]), num(TH["stats"]["opp_ypa"]), False, lambda v: f"{v:.1f}"),
-        ("3rd down %", num(TA["stats"]["third"]), num(TH["stats"]["third"]), True, lambda v: f"{v:.0f}%"),
-        ("Pressure %", num(TA["stats"]["pressure"]), num(TH["stats"]["pressure"]), True, lambda v: f"{v:.0f}%"),
-        ("Plays/game", num(TA["stats"]["plays"]), num(TH["stats"]["plays"]), None, lambda v: f"{v:.1f}"),
-        ("TO margin/g", num(TA["stats"]["to_margin"]), num(TH["stats"]["to_margin"]), True, lambda v: f"{v:+.2f}"),
-    ]
+    if m["bet"] == "ML":
+        t = m["team"]
+        return f"You're betting the <b>{esc(name(t))}</b> win the game. Score doesn't matter. Price {odds(m['price'])}: {risk_win(m['price'])}."
+    if m["bet"] == "Spread":
+        t = m["team"]
+        line = float(m["pick"].split()[-1])
+        if line > 0:
+            return (f"The <b>{esc(name(t))}</b> get a {line:g}-point head start. You win if they <b>win the game, or lose by "
+                    f"{math.floor(line)} or fewer</b>. Price {odds(m['price'])}: {risk_win(m['price'])}.")
+        return (f"The <b>{esc(name(t))}</b> must <b>win by {math.ceil(-line)} or more</b> points. Price {odds(m['price'])}: {risk_win(m['price'])}.")
+    if m["bet"] == "O/U":
+        line = float(m["pick"].split()[-1])
+        if m["pick"].startswith("Under"):
+            return f"You win if <b>both teams combined score {math.floor(line)} or fewer</b> points. Price {odds(m['price'])}: {risk_win(m['price'])}."
+        return f"You win if <b>both teams combined score {math.ceil(line)} or more</b> points. Price {odds(m['price'])}: {risk_win(m['price'])}."
+    if m["bet"].startswith("1H"):
+        return "You win if the <b>score at halftime adds up to 26 or fewer</b> points (both teams combined)."
+    return "You win if the <b>points scored in the 3rd and 4th quarters only</b> add up to 26 or fewer (both teams; overtime doesn't count)."
+
+
+def reasons(m, r):
+    """List of (passed?, sentence) explaining the decision, with numbers."""
     out = []
-    for lbl, a, h, hib, f in rows:
-        if a is None or h is None:
-            continue
-        lo = min(a, h, 0)
-        span = (max(abs(a - lo), abs(h - lo)) or 1)
-        wa, wh = 18 + 82 * abs(a - lo) / span, 18 + 82 * abs(h - lo) / span
-        ba = "best" if hib is not None and ((a > h) == hib) and a != h else ""
-        bh = "best" if hib is not None and ((h > a) == hib) and a != h else ""
-        out.append(f'<div class="tape-row"><div class="tape-l"><span class="{ba}">{f(a)}</span><div class="tb" style="width:{wa:.0f}%;max-width:120px;background:{acc_a}"></div></div>'
-                   f'<div class="tape-c">{lbl}</div>'
-                   f'<div class="tape-r"><div class="tb" style="width:{wh:.0f}%;max-width:120px;background:{acc_h}"></div><span class="{bh}">{f(h)}</span></div></div>')
-    ranks = (f'<div class="cmp">EPA ranks (1 = best): {A} offense #{TA["epa"]["off"]["rank"]}, defense #{TA["epa"]["def"]["rank"]} · '
-             f'{H} offense #{TH["epa"]["off"]["rank"]}, defense #{TH["epa"]["def"]["rank"]}. Bold = better side. EPA derived from nflverse play-by-play.</div>')
-    return "".join(out) + ranks
+    F, cut = pct(m["final"]), pct(cutoff(m))
+    if m["final"] >= cutoff(m):
+        out.append((True, f"Our chance is {F}%, at or above the {cut}% we require."))
+    else:
+        coin = " That's close to a coin flip." if F < 56 else ""
+        out.append((False, f"We give it a <b>{F}% chance</b> to win. We only bet at <b>{cut}% or higher</b>, so it's {cut - F} point{'s' if cut - F != 1 else ''} short.{coin}"))
+    if is_half(m):
+        need_n = math.ceil(0.75 * m["team_games"])
+        ok = m["team_count"] >= need_n
+        out.append((ok, f"Only <b>{m['team_count']} of these two teams' {m['team_games']} games</b> stayed under 26.5 in this half. We want at least {need_n} of {m['team_games']}."
+                    if not ok else f"{m['team_count']} of these two teams' {m['team_games']} games stayed under 26.5 in this half (we want {need_n}+)."))
+    else:
+        if m["disagree"]:
+            out.append((False, f"Our stats say <b>{pct(m['model'])}%</b>, but the sportsbook's odds say <b>{pct(m['fair'])}%</b>. That's a "
+                               f"{abs(pct(m['model']) - pct(m['fair']))}-point gap. When we disagree with the sportsbook by more than 10 points, "
+                               f"the sportsbook is usually right (it prices in injuries, team quality and more than our stats see), so we stay out."))
+        else:
+            out.append((True, f"Our stats ({pct(m['model'])}%) and the sportsbook ({pct(m['fair'])}%) are within 10 points of each other."))
+        if m["bet"] == "ML" and m.get("dog"):
+            out.append((False, "This team is the underdog. Our rules never bet an underdog to win outright."))
+    if m["price"] is None:
+        out.append(("info",
+                    f"We don't have the sportsbook's price for this bet. If you find it, only take <b>{odds(m['need'])} or better</b>."))
+    elif "overpriced" in m["blocked_by"]:
+        out.append((False, f"The price is too expensive. At {odds(m['price'])} you {risk_win(m['price'])}, which only pays off if it wins "
+                           f"<b>{pct(implied(m['price']))}%</b> of the time. We think it wins {F}%. The most we'd pay is <b>{odds(m['need'])}</b>."))
+    else:
+        out.append((True, f"Price {odds(m['price'])} is at or better than the {odds(m['need'])} we'd need."))
+    for b in m["blocked_by"]:
+        if b not in ("below 60%", "below 65%", "DISAGREE", "overpriced", "underdog ML", "price not given") and not b.startswith("team count"):
+            out.append((False, esc(b)))
+    return out
+
+
+def lead(mm, A, H):
+    return f"{nick(H)} by {r1(mm)}" if mm >= 0 else f"{nick(A)} by {r1(-mm)}"
+
+
+def numbers(m, r, league):
+    A, H, p, T = r["away"], r["home"], r["proj"], r["teams"]
+    E = {t: T[t]["espn"] for t in T}
+    rows = []
+    if m["bet"] in ("ML", "Spread"):
+        rows += [(f"{nick(A)} average points scored / allowed", f"{r1(E[A]['pf'])} / {r1(E[A]['pa'])}"),
+                 (f"{nick(H)} average points scored / allowed", f"{r1(E[H]['pf'])} / {r1(E[H]['pa'])}"),
+                 ("Our projected score (season averages)", f"{A} {r1(p['raw']['away'])} – {H} {r1(p['raw']['home'])}"),
+                 ("Same, adjusted for opponents' strength", f"{A} {r1(p['adj']['away'])} – {H} {r1(p['adj']['home'])}"),
+                 ("Our projected winner, both methods (incl. 1.5 pts home edge)", f"{lead(p['raw']['margin_home'], A, H)} / {lead(p['adj']['margin_home'], A, H)}")]
+        if m["bet"] == "ML":
+            rows.append(("Sportsbook's chance this team wins", f"{pct(m['fair'])}%"))
+            rows.append(("Our stats' chance", f"{pct(m['model'])}%"))
+        else:
+            sp = r["meta"]["spread"]["home_line"]
+            rows.append(("Sportsbook expects", lead(-sp, A, H)))
+        tot = None
+    elif m["bet"] == "O/U":
+        rows += [(f"{nick(A)} average points scored / allowed", f"{r1(E[A]['pf'])} / {r1(E[A]['pa'])}"),
+                 (f"{nick(H)} average points scored / allowed", f"{r1(E[H]['pf'])} / {r1(E[H]['pa'])}"),
+                 ("Our projected total (season averages)", f"{r1(p['raw']['total'])}"),
+                 ("Same, adjusted for opponents' strength", f"{r1(p['adj']['total'])}")]
+        tot = ("Sportsbook's line", f"{r['meta']['total']['line']}")
+    else:
+        k = "h1" if m["bet"].startswith("1H") else "h2"
+        word = "1st" if k == "h1" else "2nd"
+        ea = (E[A][f"{k}f"] + E[H][f"{k}a"]) / 2
+        eh = (E[H][f"{k}f"] + E[A][f"{k}a"]) / 2
+        rows += [(f"{nick(A)} score {r1(E[A][k+'f'])} in {word} halves; {nick(H)} allow {r1(E[H][k+'a'])}. Average →", f"{nick(A)} {r1(ea)}"),
+                 (f"{nick(H)} score {r1(E[H][k+'f'])} in {word} halves; {nick(A)} allow {r1(E[A][k+'a'])}. Average →", f"{nick(H)} {r1(eh)}")]
+        tot = (f"Projected {word}-half total (line is 26.5)", f"{r1(p[k])}")
+    html_rows = "".join(f"<tr><td>{esc(a)}</td><td>{esc(b)}</td></tr>" for a, b in rows)
+    if tot:
+        html_rows += f'<tr class="tot"><td>{esc(tot[0])}</td><td>{esc(tot[1])}</td></tr>'
+    extra = ""
+    if is_half(m):
+        k = "h1" if m["bet"].startswith("1H") else "h2"
+        for t in (A, H):
+            chips = "".join(
+                f'<span class="chip {"c-u" if g[k+"f"] + g[k+"a"] < 26.5 else "c-o"}">{"vs" if g["home"] else "@"} {g["opp"]}: '
+                f'{g[k+"f"] + g[k+"a"]:g} {"✓" if g[k+"f"] + g[k+"a"] < 26.5 else "✕"}</span>' for g in T[t]["log"])
+            extra += f'<div style="font-size:14px;margin-top:10px"><b>{nick(t)} games this season</b> ({word_half(k)} total points):</div><div class="chips">{chips}</div>'
+        rate, under, n = league[f"{k}_rate"], league[f"{k}_under"], league["games"]
+        extra += f'<div style="font-size:14px;color:var(--mute)">Whole NFL this season: {under} of {n} games ({pct(rate)}%) stayed under 26.5 in the {word_half(k)}.</div>'
+    return f'<div class="nums"><h4>The numbers behind it</h4><table>{html_rows}</table>{extra}</div>'
+
+
+def word_half(k):
+    return "1st half" if k == "h1" else "2nd half"
+
+
+def how_we_got(m):
+    F = pct(m["final"])
+    if is_half(m):
+        return (f"How we got {F}%: our stats say {pct(m['model'])}%, and {pct(m['league'])}% of NFL games this season stayed under. "
+                f"We average the two.")
+    return (f"How we got {F}%: the sportsbook's odds say {pct(m['fair'])}%, our stats say {pct(m['model'])}%. "
+            f"We start from the sportsbook and move a quarter of the way toward our stats, because the sportsbook is usually the better estimate.")
+
+
+def meter(m):
+    F, cut = m["final"], cutoff(m)
+    col = "#22c55e" if m["qualifies"] else ("#f59e0b" if F >= cut - 0.05 else "#f43f5e")
+    return f"""<div class="meter"><div class="mrow"><span>Our chance this bet wins</span><span class="big" style="color:{col}">{pct(F)}%</span></div>
+<div class="track"><div class="fill" style="width:{r1(F*100)}%;background:linear-gradient(90deg,{col}55,{col})"></div>
+<div class="half50" style="left:50%"></div><div class="need" style="left:{cut*100:.0f}%"><span>need {pct(cut)}%</span></div></div>
+<div class="scale"><span>0%</span><span>50% = coin flip</span><span>100%</span></div></div>"""
+
+
+def bet_card(i, m, r, league):
+    ok = m["qualifies"]
+    dec = '<span class="dec d-go">✓ BET IT</span>' if ok else '<span class="dec d-no">✕ DON\'T BET</span>'
+    rs = reasons(m, r)
+    cls = {True: "okk", False: "", "info": "inf"}
+    lis = "".join(f'<li class="{cls[good]}">{txt}</li>' for good, txt in rs)
+    head = "Why it passes" if ok else "Why we're not betting it"
+    action = (f'<div class="what" style="border:1px solid rgba(34,197,94,.5)"><b>What to do:</b> bet it, but only at a price of <b>{odds(m["need"])} or better</b>.</div>' if ok else "")
+    return f"""<div class="card bet{' ok' if ok else ''}">
+<div class="hd"><div><div class="n">Bet {i} · {esc(BET_TITLES.get(m['bet'], m['bet']))}</div><div class="pick">{esc(m['pick'])}</div></div>{dec}</div>
+<div class="what"><b>What this bet means:</b> {what_it_is(m, r)}</div>
+{meter(m)}{action}
+<div class="why"><h4>{head}</h4><ul>{lis}</ul></div>
+{numbers(m, r, league)}
+<div class="how">{esc(how_we_got(m))}</div>
+</div>"""
 
 
 def inj_list(items):
@@ -233,145 +343,156 @@ def inj_list(items):
     for x in items:
         t = x.split(":")[0].strip().upper()
         cls = "t-out" if t in ("OUT", "IR") else ("t-ok" if t.startswith("CLEAR") else "t-q")
-        li.append(f'<li><span class="tag {cls}">{esc(t)}</span>{esc(x.split(":", 1)[1].strip() if ":" in x else x)}</li>')
+        lbl = {"IR": "OUT (IR)", "Q": "MAYBE"}.get(t, t)
+        li.append(f'<li><span class="tag {cls}">{esc(lbl)}</span>{esc(x.split(":", 1)[1].strip() if ":" in x else x)}</li>')
     return '<ul class="clean" style="list-style:none;padding:0">' + "".join(li) + "</ul>"
-
-
-def why_line(m, r):
-    p, A, H = r["proj"], r["away"], r["home"]
-    lead = lambda mm: f"{H} by {mm:.1f}" if mm >= 0 else f"{A} by {-mm:.1f}"
-    if m["bet"] == "ML":
-        return f"Model margin {lead(p['raw']['margin_home'])} (raw) / {lead(p['adj']['margin_home'])} (adj): near a coin flip; book says {pct(m['fair'])}%."
-    if m["bet"] == "Spread":
-        return f"Projected margin {lead(p['raw']['margin_home'])} to {lead(p['adj']['margin_home'])} vs the {r['meta']['spread']['home_line']:+g} line."
-    if m["bet"] == "O/U":
-        return f"Model total {p['raw']['total']:.1f}–{p['adj']['total']:.1f} vs {r['meta']['total']['line']}."
-    key = "h1" if m["bet"].startswith("1H") else "h2"
-    return f"Projected {key.upper()} total {p[key]:.1f}; {m['team_count']} of {m['team_games']} team games stayed under; league {pct(m['league'])}%."
 
 
 def game_section(r, league):
     A, H = r["away"], r["home"]
     acc_a, acc_h = team_accents(A, H)
-    pa_, ph_ = colors(A)[0], colors(H)[0]
-    meta, p = r["meta"], r["proj"]
-    T = r["teams"]
+    meta, T = r["meta"], r["teams"]
     rec = lambda t: T[t]["trends"]["tr_moneyline"].get("Win/Loss", "")
-    bets = [m for m in r["markets"] if m["qualifies"]]
+    mk = r["markets"]
+    bets = [m for m in mk if m["qualifies"]]
     if bets:
-        verdict = f'<div class="ic">✅</div><div><div class="big">{len(bets)} bet{"s" if len(bets) > 1 else ""} qualify</div><div class="why">{esc(" · ".join(m["bet"] + " " + m["pick"] for m in bets))}</div></div>'
+        todo = (f'<div class="todo go"><div class="lbl">What to do</div><div class="big">Bet {len(bets)} of the 5</div>'
+                + "".join(f'<p>✅ <b>{esc(m["pick"])}</b> ({esc(BET_TITLES[m["bet"]])}): only at <b>{odds(m["need"])} or better</b>.</p>' for m in bets)
+                + '<p>Skip everything else on this game. Each bet below says why.</p></div>')
     else:
-        near = max(r["markets"], key=lambda m: m["final"] - (0.65 if m["bet"].startswith(("1H", "2H")) else 0.60))
-        verdict = (f'<div class="ic">🛑</div><div><div class="big">No bets: every market fails a rule</div>'
-                   f'<div class="why">Closest: {esc(near["bet"])} {esc(near["pick"])} at {pct(near["final"])}% ({esc(", ".join(near["blocked_by"]))}).</div></div>')
+        near = max(mk, key=lambda m: m["final"] - cutoff(m))
+        todo = (f'<div class="todo no"><div class="lbl">What to do</div><div class="big">Don\'t bet this game.</div>'
+                f'<p>We checked all 5 common bets on {nick(A)} at {nick(H)}. <b>None passed our rules.</b> They\'re all too close to a coin flip, '
+                f'or our numbers fight the sportsbook\'s too much to trust.</p>'
+                f'<p>The closest was <b>{esc(near["pick"])}</b> ({esc(BET_TITLES[near["bet"]])}) at {pct(near["final"])}%, still short of the {pct(cutoff(near))}% we require.</p>'
+                f'<p style="color:var(--mute);font-size:14px">Skipping is a good result: it keeps money off bets that aren\'t clearly in your favor.</p></div>')
+    badge = {True: '<span class="dec d-go">✓ BET</span>', False: '<span class="dec d-no">✕ SKIP</span>'}
+    rows = "".join(
+        f'<tr><td><b>{esc(BET_TITLES[m["bet"]].split(" (")[0])}</b><br><span style="color:var(--mute);font-size:13px">{esc(m["pick"])}</span></td>'
+        f'<td class="ch" style="color:{"var(--go)" if m["qualifies"] else "var(--ink)"}">{pct(m["final"])}%</td>'
+        f'<td style="color:var(--mute);font-size:13px">need {pct(cutoff(m))}%</td>'
+        f'<td>{badge[m["qualifies"]]}</td></tr>' for m in mk)
+    cards = "".join(bet_card(i, m, r, league) for i, m in enumerate(mk, 1))
     sp, to = meta["spread"], meta["total"]
-    chips = [meta.get("kickoff", ""), meta.get("venue", ""), f"{H} {sp['home_line']:+g}", f"ML {A} {odds(meta['ml']['away'])} / {H} {odds(meta['ml']['home'])}", f"O/U {to['line']}"]
-    lead = lambda mm: f"{H} by {mm:.1f}" if mm >= 0 else f"{A} by {-mm:.1f}"
-
-    cards = "".join(market_card(m, acc_h, why_line(m, r)) for m in r["markets"])
-    logs_tbl = ""
-    for t in (A, H):
-        rows = "".join(f'<tr><td>W{g["wk"]} {"vs" if g["home"] else "@"} {g["opp"]}</td><td>{g["pf"]}-{g["pa"]}</td>'
-                       f'<td>{g["h1f"]:g}-{g["h1a"]:g}</td><td>{g["h2f"]:g}-{g["h2a"]:g}</td></tr>' for g in T[t]["log"])
-        e, s = T[t]["espn"], T[t]["statrankings"]
-        logs_tbl += (f'<div class="card"><h3 style="margin:0 0 6px;color:{acc_a if t == A else acc_h}">{t} game log</h3><div class="scroll"><table>'
-                     f'<tr><th>Game</th><th>Final</th><th>1H</th><th>2H</th></tr>{rows}'
-                     f'<tr><td><b>Avg (ESPN)</b></td><td>{e["pf"]:.1f}-{e["pa"]:.1f}</td><td>{e["h1f"]:.1f}-{e["h1a"]:.1f}</td><td>{e["h2f"]:.1f}-{e["h2a"]:.1f}</td></tr>'
-                     f'<tr><td>StatRankings</td><td>{s["pf"]}-{s["pa"]}</td><td>{s["h1f"]}-{s["h1a"]}</td><td>{s["h2f"]}-{s["h2a"]}</td></tr></table></div></div>')
-    halves = "".join(
-        f'<div class="card"><h3 style="margin:0 0 4px">{t}: {lbl}</h3>{half_chart(T[t]["log"], k, acc_a if t == A else acc_h, t + " " + lbl)}'
-        f'<div class="why">Solid bar = {t} points; faint bar = game total (green under, red over).</div></div>'
-        for k, lbl in (("h1", "1st-half totals"), ("h2", "2nd-half totals")) for t in (A, H))
-    kills = "".join(f"<li><b>{esc(k)}:</b> {esc(v)}</li>" for k, v in meta.get("kills_it", {}).items())
-    sched = p["schedule"]
     return f"""
-<section class="hero" style="--a1:{pa_};--h1:{ph_}"><div class="hero-in">
+<section class="hero" style="--a1:{colors(A)[0]};--h1:{colors(H)[0]}"><div class="hero-in">
  <div class="kick">{esc(meta.get('kickoff', ''))}</div>
  <div class="vs"><div class="tm"><div class="ab">{A}</div><div class="nm">{esc(name(A))}</div><div class="rec">{esc(rec(A))}</div></div>
  <div class="at">@</div>
  <div class="tm"><div class="ab">{H}</div><div class="nm">{esc(name(H))}</div><div class="rec">{esc(rec(H))}</div></div></div>
- <div class="chips">{''.join(f'<span class="chip">{esc(c)}</span>' for c in chips[2:])}</div>
+ <div style="text-align:center;font-size:13px;opacity:.9">{esc(meta.get('venue', ''))}</div>
 </div><div class="stripe"><span style="background:{colors(A)[1]}"></span><span style="background:{colors(H)[1]}"></span></div></section>
-<div class="verdict">{verdict}</div>
+{todo}
 
-<h2>Projected score</h2>
-<div class="score">
- <div class="sc"><h3>Raw</h3>
-  <div class="sline"><span><i class="pill" style="background:{acc_a}"></i>{A}</span><span class="num">{p['raw']['away']:.1f}</span></div>
-  <div class="sline"><span><i class="pill" style="background:{acc_h}"></i>{H}</span><span class="num">{p['raw']['home']:.1f}</span></div>
-  <div class="cmp">Margin {lead(p['raw']['margin_home'])} (incl. +1.5 home) · Total {p['raw']['total']:.1f}</div></div>
- <div class="sc"><h3>Schedule-adjusted</h3>
-  <div class="sline"><span><i class="pill" style="background:{acc_a}"></i>{A}</span><span class="num">{p['adj']['away']:.1f}</span></div>
-  <div class="sline"><span><i class="pill" style="background:{acc_h}"></i>{H}</span><span class="num">{p['adj']['home']:.1f}</span></div>
-  <div class="cmp">Margin {lead(p['adj']['margin_home'])} · Total {p['adj']['total']:.1f}</div></div>
+<h2>How to read this page</h2>
+<div class="steps">
+ <div class="step"><span class="st">1 · Our chance</span>Every bet gets a chance of winning, from 0% to 100%. 50% is a coin flip.</div>
+ <div class="step"><span class="st">2 · The bar to clear</span>We only bet at <b>60%+</b> (<b>65%+</b> for half bets). The black line on each meter marks it.</div>
+ <div class="step"><span class="st">3 · Extra checks</span>Our stats can't fight the sportsbook by more than 10 points, and the price can't be too expensive.</div>
+ <div class="step"><span class="st">4 · Decision</span><span style="color:var(--go);font-weight:700">Green ✓ = bet it.</span> <span style="color:var(--no);font-weight:700">Red ✕ = skip it</span>, and the card says why.</div>
 </div>
-<div class="card" style="margin-top:12px"><div class="why" style="margin:0">
- <b>Book says:</b> {H} by {-sp['home_line']:g}, total {to['line']}. <b>Model says:</b> {lead(p['raw']['margin_home'])} to {lead(p['adj']['margin_home'])}, total {p['raw']['total']:.1f}–{p['adj']['total']:.1f}.
- Schedule: {A} opponents allowed {sched[A]['opp_avg_pa']:.1f} / scored {sched[A]['opp_avg_pf']:.1f}; {H} opponents allowed {sched[H]['opp_avg_pa']:.1f} / scored {sched[H]['opp_avg_pf']:.1f} (league avg {p['league_avg_ppg']:.1f}).
- <br><b>Line move:</b> {esc(meta.get('line_move', '—'))}</div></div>
 
-<h2>All 5 bets</h2>
-<div class="grid g2">{cards}</div>
+<h2>The 5 bets at a glance</h2>
+<table class="sum"><tr><th>Bet</th><th>Chance</th><th></th><th>Decision</th></tr>{rows}</table>
 
-<h2>Half scoring vs 26.5</h2>
-<div class="grid g2">{halves}</div>
-<div class="card" style="margin-top:12px"><div class="why" style="margin:0">League this season: 1H avg {league['h1_avg']:.1f}, under 26.5 in {league['h1_under']}/{league['games']} ({pct(league['h1_rate'])}%) ·
- 2H avg {league['h2_avg']:.1f}, under 26.5 in {league['h2_under']}/{league['games']} ({pct(league['h2_rate'])}%). OT excluded.</div></div>
+<h2>Each bet, explained</h2>
+{cards}
 
-<h2>Tale of the tape</h2>
-<div class="card"><div class="tape-row" style="font-weight:700"><div style="text-align:right;color:{acc_a}">{A}</div><div></div><div style="color:{acc_h}">{H}</div></div>{tape(r, acc_a, acc_h)}</div>
+<h2>Odds in 10 seconds</h2>
+<div class="card"><ul class="clean">
+ <li><b>A minus number (−176)</b> is the favorite: you risk $176 to win $100 (you get $276 back if it wins).</li>
+ <li><b>A plus number (+148)</b> is the underdog: you risk $100 to win $148.</li>
+ <li><b>−110 / −115</b> on spreads and totals: risk about $110–115 to win $100. That extra cost is the sportsbook's cut.</li>
+ <li><b>Sportsbook's line here:</b> {esc(nick(H))} favored by {-sp['home_line']:g}; total {to['line']}; moneyline {A} {odds(meta['ml']['away'])} / {H} {odds(meta['ml']['home'])}.</li>
+</ul></div>
 
-<h2>Game logs</h2>
-<div class="grid g2">{logs_tbl}</div>
-
-<h2>Injuries &amp; situation</h2>
-<div class="inj">
- <div class="card"><h3 style="margin:0 0 6px;color:{acc_a}">{A}</h3>{inj_list(meta.get('injuries', {}).get(A, []))}</div>
- <div class="card"><h3 style="margin:0 0 6px;color:{acc_h}">{H}</h3>{inj_list(meta.get('injuries', {}).get(H, []))}</div>
+<h2>Things that could change this</h2>
+<div class="grid2">
+ <div class="card"><h3 style="margin:0 0 8px;color:{acc_a}">{esc(name(A))} injuries</h3>{inj_list(meta.get('injuries', {}).get(A, []))}</div>
+ <div class="card"><h3 style="margin:0 0 8px;color:{acc_h}">{esc(name(H))} injuries</h3>{inj_list(meta.get('injuries', {}).get(H, []))}</div>
 </div>
 <div class="card" style="margin-top:12px"><ul class="clean">
- <li><b>QBs:</b> {esc(meta.get('qbs', '—'))}</li><li><b>Weather:</b> {esc(meta.get('weather', '—'))}</li>
- <li><b>Opening line:</b> {esc(meta.get('opening', '—'))}</li>
- {''.join(f'<li>{esc(x)}</li>' for x in meta.get('situation', []))}
- <li><b>Lines source:</b> {esc(meta.get('lines_source', '—'))}</li></ul></div>
-{f'<h2>Kills it</h2><div class="card"><ul class="clean">{kills}</ul></div>' if kills else ''}
+ <li><b>Quarterbacks:</b> {esc(meta.get('qbs', '—'))}</li>
+ <li><b>Line movement:</b> {esc(meta.get('line_move', '—'))}</li>
+ <li><b>Weather:</b> {esc(meta.get('weather', '—'))}</li>
+ <li><b>Final injury news</b> comes out about 90 minutes before kickoff. If a starting QB is suddenly out, everything here is void.</li>
+</ul></div>
+{details_section(r)}
 """
 
 
+def details_section(r):
+    A, H, T, p, meta = r["away"], r["home"], r["teams"], r["proj"], r["meta"]
+    logs = ""
+    for t in (A, H):
+        rows = "".join(f'<tr><td>Wk {g["wk"]} {"vs" if g["home"] else "@"} {g["opp"]}</td><td>{g["pf"]}–{g["pa"]}</td>'
+                       f'<td>{g["h1f"]:g}–{g["h1a"]:g}</td><td>{g["h2f"]:g}–{g["h2a"]:g}</td></tr>' for g in T[t]["log"])
+        e, s = T[t]["espn"], T[t]["statrankings"]
+        logs += (f'<div class="card"><h3 style="margin:0 0 6px">{esc(name(t))} game by game</h3><table class="plain">'
+                 f'<tr><th>Game</th><th>Final</th><th>1st half</th><th>2nd half</th></tr>{rows}'
+                 f'<tr><td><b>Average</b></td><td>{r1(e["pf"])}–{r1(e["pa"])}</td><td>{r1(e["h1f"])}–{r1(e["h1a"])}</td><td>{r1(e["h2f"])}–{r1(e["h2a"])}</td></tr>'
+                 f'<tr><td style="color:var(--mute)">StatRankings check</td><td>{s["pf"]}–{s["pa"]}</td><td>{s["h1f"]}–{s["h1a"]}</td><td>{s["h2f"]}–{s["h2a"]}</td></tr></table>'
+                 f'<div style="font-size:12px;color:var(--mute);margin-top:6px">Scores shown as {t}–opponent.</div></div>')
+    ep = lambda t, s: T[t]["epa"][s]
+    tape = (f'<table class="plain"><tr><th>Stat</th><th>{A}</th><th>{H}</th></tr>'
+            f'<tr><td>Offense EPA/play (higher = better; rank)</td><td>{ep(A,"off")["epa"]:+.3f} (#{ep(A,"off")["rank"]})</td><td>{ep(H,"off")["epa"]:+.3f} (#{ep(H,"off")["rank"]})</td></tr>'
+            f'<tr><td>Defense EPA/play (lower = better; rank)</td><td>{ep(A,"def")["epa"]:+.3f} (#{ep(A,"def")["rank"]})</td><td>{ep(H,"def")["epa"]:+.3f} (#{ep(H,"def")["rank"]})</td></tr>'
+            + "".join(f'<tr><td>{lbl}</td><td>{esc(str(T[A]["stats"][k]))}</td><td>{esc(str(T[H]["stats"][k]))}</td></tr>' for lbl, k in (
+                ("Yards per play", "ypp"), ("Yards per play allowed", "opp_ypp"), ("Pass yards per attempt allowed", "opp_ypa"),
+                ("3rd-down conversion %", "third"), ("Pressure rate (defense)", "pressure"), ("Plays per game", "plays"),
+                ("Turnover margin per game", "to_margin")))
+            + '</table><div style="font-size:12px;color:var(--mute);margin-top:6px">EPA = expected points added per play vs an average team (derived from nflverse play-by-play).</div>')
+    situ = "".join(f"<li>{esc(x)}</li>" for x in meta.get("situation", []))
+    return f"""
+<details><summary>More detail (for the curious)</summary><div>
+<div class="grid2">{logs}</div>
+<div class="card" style="margin-top:12px"><h3 style="margin:0 0 6px">Team comparison</h3>{tape}</div>
+<div class="card" style="margin-top:12px"><h3 style="margin:0 0 6px">Game situation</h3><ul class="clean">{situ}
+<li>Opening line: {esc(meta.get('opening', '—'))}</li><li>Where the lines came from: {esc(meta.get('lines_source', '—'))}</li></ul></div>
+</div></details>"""
+
+
+GLOSSARY = [
+    ("Moneyline", "Bet on who wins the game. Nothing else matters."),
+    ("Point spread", "The favorite has to win by more than the line; the underdog can lose by less than it and still win you the bet."),
+    ("Total (over/under)", "Bet on whether both teams' combined points go over or under a number."),
+    ("Half bets", "Same idea, counting only the points scored in the 1st half (or only the 2nd half)."),
+    ("Sportsbook's chance", "What the odds say the chance is, with the sportsbook's cut removed."),
+    ("Our stats' chance", "What this season's scoring numbers alone say."),
+    ("Our chance", "The number we decide on: mostly the sportsbook's chance, nudged a quarter of the way toward our stats."),
+    ("Need price", "The worst odds still worth taking. Anything more expensive is a bad deal even if you think it wins."),
+]
+
+
 def page(title, body, accents=("#38bdf8", "#a78bfa"), back=True):
-    nav = '<a href="../../index.html" style="font-size:13px">← All runs</a>' if back else ""
+    nav = '<a href="../../index.html" style="font-size:14px">← All games</a>' if back else ""
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"><title>{esc(title)}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
 <style>{CSS}</style></head><body style="--a:{accents[0]};--h:{accents[1]}"><div class="wrap">{nav}{body}</div></body></html>"""
 
 
 def build_run(run):
     res = json.load(open(f"{run}/result.json"))
     cfg, league = res["config"], res["league"]
-    body = f'<h1 style="font-size:26px;margin:10px 0 14px">NFL Bet Research <span style="color:var(--mute);font-weight:500">· {esc(cfg.get("title", ""))}</span></h1>'
+    body = f'<h1 style="font-size:24px;margin:10px 0 14px">NFL Bet Check <span style="color:var(--mute);font-weight:500">· {esc(cfg.get("title", ""))}</span></h1>'
     for r in res["games"]:
         body += game_section(r, league)
-    # Tables 2/3 across all games
-    bets = sorted([(m, r) for r in res["games"] for m in r["markets"] if m["qualifies"]], key=lambda x: -x[0]["final"])
-    t2 = "".join(f'<tr><td>{i}</td><td>{x["away"]}@{x["home"]} {esc(m["bet"])} {esc(m["pick"])}</td><td>{pct(m["final"])}%</td><td>{odds(m["need"])}</td></tr>'
-                 for i, (m, x) in enumerate(bets, 1)) or '<tr><td colspan="4" style="text-align:center;color:var(--mute)">None qualify.</td></tr>'
-    t3 = "".join(f'<tr><td>{esc(" + ".join(p["legs"]))}</td><td>{pct(p["combined"])}%</td></tr>' for p in res["parlays"]) \
-        or '<tr><td colspan="2" style="text-align:center;color:var(--mute)">None. No legs at 65%+ that qualify.</td></tr>'
-    body += f"""<h2>Bets we'd make</h2><div class="card scroll"><table><tr><th>#</th><th>Bet</th><th>Chance</th><th>Need</th></tr>{t2}</table></div>
-<h2>Parlays</h2><div class="card scroll"><table><tr><th>Parlay</th><th>Combined</th></tr>{t3}</table></div>
-<h2>Not checked</h2><div class="card"><ul class="clean">{''.join(f'<li>{esc(x)}</li>' for x in cfg.get('not_checked', []))}</ul></div>
-<h2>Sources</h2><div class="card"><ul class="clean">{''.join(f'<li><a href="{esc(u)}">{esc(t)}</a></li>' for t, u in cfg.get('sources', []))}</ul></div>
-<h2>How the chance is computed</h2><div class="card"><div class="why" style="margin:0">
-Model = average of RAW and schedule-adjusted normal-CDF chances (σ 13.3 margin, 13.5 total, 10 / 10.5 halves).
-Final = book fair + 25% × (model − fair). Halves: Final = (model + league rate) / 2.
-Bet only if Final ≥ 60% (≥ 65% halves, plus team count ≥ 75%), no ⚠ DISAGREE (|model − fair| &gt; 10 pts), and price at or better than Need. All numbers derived by <code>scripts/template_a.py</code>; see <code>result.json</code>.</div></div>
-<div class="foot">Generated {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')} · Run date {esc(cfg.get('run_date', ''))} · No template guarantees a win. Track every bet against the closing line.</div>"""
+    if res["parlays"]:
+        body += "<h2>Parlays (two bets combined)</h2><div class='card'><ul class='clean'>" + "".join(
+            f'<li>{esc(" + ".join(p["legs"]))}: both win {pct(p["combined"])}% of the time</li>' for p in res["parlays"]) + "</ul></div>"
+    gl = "".join(f"<dt>{esc(a)}</dt><dd>{esc(b)}</dd>" for a, b in GLOSSARY)
+    body += f"""
+<details><summary>Words used on this page</summary><div class="card"><dl class="gl">{gl}</dl></div></details>
+<details><summary>What we couldn't check · sources</summary><div class="card">
+<ul class="clean">{''.join(f'<li>{esc(x)}</li>' for x in cfg.get('not_checked', []))}</ul>
+<h3 style="margin:14px 0 6px">Sources</h3><ul class="clean">{''.join(f'<li><a href="{esc(u)}">{esc(t)}</a></li>' for t, u in cfg.get('sources', []))}</ul></div></details>
+<div class="foot">Generated {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')} · Research date {esc(cfg.get('run_date', ''))}<br>
+This is research, not a guarantee. Never bet money you can't afford to lose.</div>"""
     g0 = res["games"][0]
-    acc = team_accents(g0["away"], g0["home"])
     title = " · ".join(f'{r["away"]} @ {r["home"]}' for r in res["games"])
-    open(f"{run}/report.html", "w").write(page(f"{title} Bet Research", body, acc))
+    open(f"{run}/report.html", "w").write(page(f"{title} Bet Check", body, team_accents(g0["away"], g0["home"])))
 
 
 def build_index():
@@ -383,16 +504,20 @@ def build_index():
         for r in res["games"]:
             A, H = r["away"], r["home"]
             q = [m for m in r["markets"] if m["qualifies"]]
-            badge = f'<span class="badge b-go">✓ {len(q)} bet{"s" if len(q) != 1 else ""}</span>' if q else '<span class="badge b-no">No bets</span>'
-            mk = " · ".join(f'{m["bet"]} {pct(m["final"])}%' for m in r["markets"])
-            cards.append(f'<a href="runs/{run}/report.html" style="text-decoration:none;color:inherit"><div class="card" style="border-left:6px solid {colors(H)[0]}">'
-                         f'<div class="mk-top"><div><div class="mk-bet">{esc(cfg.get("title", ""))} · {esc(cfg.get("run_date", ""))}</div>'
-                         f'<div class="mk-pick">{A} @ {H}</div></div>{badge}</div><div class="why">{esc(mk)}</div></div></a>')
-    body = ('<h1 style="font-size:30px;margin:8px 0 2px">🏈 NFL Bet Research</h1>'
-            '<div class="why" style="margin:0 0 16px">Template A game-bet reports. Newest first. Current-season stats only; the book line is the anchor.</div>'
-            f'<div class="grid">{"".join(cards) or "<div class=card>No runs yet.</div>"}</div>'
-            f'<div class="foot">Updated {datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")}</div>')
-    open(f"{ROOT}/index.html", "w").write(page("NFL Bet Research", body, back=False))
+            if q:
+                verdict = f'<div style="color:var(--go);font:700 22px Oswald,sans-serif">✅ Bet {len(q)}: {esc(", ".join(m["pick"] for m in q))}</div>'
+            else:
+                verdict = '<div style="color:var(--no);font:700 22px Oswald,sans-serif">🛑 Don\'t bet this game</div>'
+            cards.append(
+                f'<a href="runs/{run}/report.html" style="text-decoration:none;color:inherit"><div class="card" style="border-left:6px solid {colors(H)[0]};margin-bottom:12px">'
+                f'<div style="font-size:12px;color:var(--mute);text-transform:uppercase;letter-spacing:1.5px">{esc(cfg.get("title", ""))} · {esc(r["meta"].get("kickoff", ""))}</div>'
+                f'<div style="font:700 26px Oswald,sans-serif;margin:2px 0">{esc(name(A))} at {esc(name(H))}</div>{verdict}'
+                f'<div style="font-size:14px;color:var(--mute);margin-top:4px">{len(q)} of 5 bets passed our checks. Tap to see each bet explained →</div></div></a>')
+    body = ('<h1 style="font-size:30px;margin:8px 0 2px">🏈 NFL Bet Check</h1>'
+            '<div style="color:var(--mute);margin:0 0 16px">One card per game, newest first. Each tells you plainly whether to bet, and the page behind it explains why.</div>'
+            f'{"".join(cards) or "<div class=card>No games yet.</div>"}'
+            f'<div class="foot">Updated {datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")} · Research, not a guarantee.</div>')
+    open(f"{ROOT}/index.html", "w").write(page("NFL Bet Check", body, back=False))
 
 
 if __name__ == "__main__":
