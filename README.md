@@ -13,13 +13,12 @@ Locally: `python3 -m http.server` in the repo root, then open http://localhost:8
 3. Click **Deploy**. Your site URL is the list of games; tap a game for its report.
 
 ## What's in a report
-- Matchup banner, the book lines, and a one-line verdict (bet / no bet, and why)
-- Projected score: raw and schedule-adjusted
-- All 5 bets (moneyline, spread, over/under, 1st-half and 2nd-half under 26.5), each with a chance bar
-  showing our model, the book's fair chance, the final number and the cutoff
-- Half-scoring charts per team vs. the 26.5 line
-- Tale of the tape (EPA, scoring, efficiency), game logs, injuries, line movement
-- Bets we'd make, parlays, what wasn't checked, sources
+Written for someone who has never placed a bet:
+- A big **"What to do"** box at the top: bet these (and the worst price to accept), or "Don't bet this game"
+- How to read the page in 4 steps, then all 5 bets at a glance (chance, what's needed, ✓ bet / ✕ skip)
+- One card per bet (moneyline, spread, total, 1st-half and 2nd-half under 26.5): what the bet means in
+  plain words, a chance meter, why we're skipping it (with numbers), and the math behind it
+- Odds explained, injuries and line movement, plus tap-to-open detail, glossary and sources
 
 ## Run it
 ```bash
