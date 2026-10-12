@@ -1,0 +1,14 @@
+{
+  "checked_date_et": "2026-10-11",
+  "checks": [
+    {"url":"https://www.footballdb.com/players/josh-allen-allenjo06","source_access":"indexed web result","season":2026,"passing_yards":1039,"attempts":119,"completions":79,"pass_tds":6},
+    {"url":"https://www.footballdb.com/players/matthew-stafford-staffma01","source_access":"indexed web result","season":2026,"passing_yards":1189,"attempts":162,"completions":99,"pass_tds":6},
+    {"url":"https://www.footballdb.com/players/puka-nacua-nacuapu01","source_access":"indexed web result","season":2026,"games":2,"receiving_yards":199,"receptions":14,"targets":21},
+    {"url":"https://www.footballdb.com/teams/nfl/buffalo-bills","source_access":"indexed web result","season":2026,"james_cook_rushing_yards":421},
+    {"url":"https://www.pro-football-reference.com/players/S/ShakKh00.htm","source_access":"indexed web result","season":2026,"receiving_yards":176,"receptions":15,"targets":23},
+    {"url":"https://sports.betmgm.com/en/blog/nfl/matthew-stafford-props-odds-gaa/","published":"2026-10-07","passing_yards":282.5,"attempts":36.5,"completions":23.5,"pass_tds":2.5,"live_quote_verified":false},
+    {"url":"https://sports.betmgm.com/en/blog/nfl/bills-rams-first-anytime-td-odds-picks-week-5-gaa/","published":"2026-10-11","anytime_odds":{"Kyren Williams":-185,"Josh Allen":-118,"James Cook III":-118,"Puka Nacua":-125,"Davante Adams":-105,"DJ Moore":185,"Keon Coleman":260,"Dalton Kincaid":165},"live_quote_verified":false}
+  ],
+  "source_failures": ["PFR direct team, red-zone, advanced-defense pages: 403 or failed web fetch", "FootballDB direct team statistics: 403", "Next Gen Stats 2026 receiving page: failed web fetch", "nflverse player_stats/player_stats_2026.csv: 404"],
+  "note":"ESPN/nflverse may share upstream NFL scoring. Partial indexed-source checks do not satisfy the full PFR plus FootballDB every-player every-game requirement. Advanced gaps are listed in props.md."
+}

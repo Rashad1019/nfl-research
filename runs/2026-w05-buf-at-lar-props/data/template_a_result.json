@@ -1,0 +1,573 @@
+{
+ "config": {
+  "template": "A",
+  "season": 2026,
+  "week": 5,
+  "run_date": "2026-10-11",
+  "title": "Week 5 \u00b7 Monday Night Football",
+  "games": [
+   {
+    "away": "BUF",
+    "home": "LAR",
+    "kickoff": "Mon Oct 12, 2026 \u00b7 8:15 PM ET",
+    "venue": "SoFi Stadium, Inglewood CA (roofed)",
+    "neutral": false,
+    "lines_source": "User: ML and spread/total numbers. Juice on spread/total not given \u2192 DraftKings via ESPN pickcenter.",
+    "ml": {
+     "away": 148,
+     "home": -176
+    },
+    "spread": {
+     "home_line": -3.5,
+     "away_price": -115,
+     "home_price": -105
+    },
+    "total": {
+     "line": 54.5,
+     "over_price": -115,
+     "under_price": -105
+    },
+    "h1_under_price": null,
+    "h2_under_price": null,
+    "skip_full_game": null,
+    "opening": "LAR -2.5 \u00b7 ML LAR -140 / BUF +115 \u00b7 Total 53.5",
+    "line_move": "Spread -2.5 \u2192 -3.5, ML -140 \u2192 -176, total 53.5 \u2192 54.5 (toward LAR and the over) even after Myles Garrett went to IR.",
+    "weather": "Roofed stadium. ESPN/AccuWeather: 68F, gusts 16 mph outside; not a factor indoors.",
+    "qbs": "Josh Allen (BUF) and Matthew Stafford (LAR) started all 4 games; neither on the injury report.",
+    "injuries": {
+     "BUF": [
+      "OUT: DT Ed Oliver (knee)",
+      "OUT: WR Joshua Palmer (shoulder)",
+      "Q: WR DJ Moore (shoulder AC)",
+      "Q: CB Dee Alford (ankle)",
+      "Q: DE Landon Jackson (knee)"
+     ],
+     "LAR": [
+      "IR: DE Myles Garrett (knee, placed Oct 10)",
+      "IR: TE Terrance Ferguson",
+      "Q: S Quentin Lake (hip), trending toward playing",
+      "Cleared: DE Aaron Donald, TE Colby Parkinson, CB Jaylen Watson"
+     ]
+    },
+    "situation": [
+     "Rest: both last played Sun Oct 4, so rest is even.",
+     "Travel: BUF goes cross-country, but it's a night kickoff (not an early body-clock game).",
+     "Non-division, primetime: leans slightly under.",
+     "Small sample: both teams have played 4 games (no LOW CONFIDENCE flag, which is <4)."
+    ],
+    "kills_it": {
+     "2H U26.5": "A shootout late: LAR's 2nd half at DEN produced 40 points.",
+     "BUF +3.5": "LAR's top-3 defense holds BUF's offense down and the Rams win by a TD."
+    }
+   }
+  ],
+  "not_checked": [
+   "pro-football-reference.com and footballdb.com returned HTTP 403, so ESPN's scoreboard API was used for quarter scores and box scores.",
+   "rbsdm.com is JavaScript-only, so EPA was derived from nflverse play-by-play instead.",
+   "Next Gen Stats, Sharp Football, ESPN win rates, Ourlads, referee crew: not pulled.",
+   "1H/2H under 26.5 prices not provided, so they can't be compared to the Need price.",
+   "Inactives (~90 min before kickoff): recheck DJ Moore and Quentin Lake."
+  ],
+  "sources": [
+   [
+    "StatRankings team stats (26 pages)",
+    "https://www.statrankings.com/nfl/teams/scoring-offense/points-per-game"
+   ],
+   [
+    "ESPN scoreboard API (quarter scores, odds, injuries)",
+    "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates=2026&seasontype=2&week=5"
+   ],
+   [
+    "nflverse play-by-play 2026 (EPA)",
+    "https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2026.csv.gz"
+   ],
+   [
+    "Rams Week 5 injury report",
+    "https://www.therams.com/news/rams-injury-report-week-5-2026-vs-bills-aaron-donald-colby-parkinson-and-jaylen-watson-good-to-go-for-monday-night-football"
+   ],
+   [
+    "WGRZ: Bills rule out Oliver, Palmer",
+    "https://www.wgrz.com/article/sports/nfl/bills/bills-rule-out-ed-oliver-joshua-palmer-ahead-of-rams-game/71-25bfe831-9e48-4f90-a84c-b6d122a3805e"
+   ],
+   [
+    "Buffalo Rumblings: opening lines",
+    "https://www.buffalorumblings.com/buffalo-bills-odds/142026/bills-vs-rams-odds-week-5-opening-lines-point-spread-total"
+   ],
+   [
+    "Covers: Week 5 odds",
+    "https://www.covers.com/nfl/week-5-odds-opening-lines-2026"
+   ]
+  ]
+ },
+ "league": {
+  "games": 77,
+  "h1_avg": 22.194805194805195,
+  "h2_avg": 23.714285714285715,
+  "h1_under": 52,
+  "h2_under": 51,
+  "h1_rate": 0.6753246753246753,
+  "h2_rate": 0.6623376623376623
+ },
+ "games": [
+  {
+   "away": "BUF",
+   "home": "LAR",
+   "meta": {
+    "kickoff": "Mon Oct 12, 2026 \u00b7 8:15 PM ET",
+    "venue": "SoFi Stadium, Inglewood CA (roofed)",
+    "neutral": false,
+    "lines_source": "User: ML and spread/total numbers. Juice on spread/total not given \u2192 DraftKings via ESPN pickcenter.",
+    "ml": {
+     "away": 148,
+     "home": -176
+    },
+    "spread": {
+     "home_line": -3.5,
+     "away_price": -115,
+     "home_price": -105
+    },
+    "total": {
+     "line": 54.5,
+     "over_price": -115,
+     "under_price": -105
+    },
+    "h1_under_price": null,
+    "h2_under_price": null,
+    "skip_full_game": null,
+    "opening": "LAR -2.5 \u00b7 ML LAR -140 / BUF +115 \u00b7 Total 53.5",
+    "line_move": "Spread -2.5 \u2192 -3.5, ML -140 \u2192 -176, total 53.5 \u2192 54.5 (toward LAR and the over) even after Myles Garrett went to IR.",
+    "weather": "Roofed stadium. ESPN/AccuWeather: 68F, gusts 16 mph outside; not a factor indoors.",
+    "qbs": "Josh Allen (BUF) and Matthew Stafford (LAR) started all 4 games; neither on the injury report.",
+    "injuries": {
+     "BUF": [
+      "OUT: DT Ed Oliver (knee)",
+      "OUT: WR Joshua Palmer (shoulder)",
+      "Q: WR DJ Moore (shoulder AC)",
+      "Q: CB Dee Alford (ankle)",
+      "Q: DE Landon Jackson (knee)"
+     ],
+     "LAR": [
+      "IR: DE Myles Garrett (knee, placed Oct 10)",
+      "IR: TE Terrance Ferguson",
+      "Q: S Quentin Lake (hip), trending toward playing",
+      "Cleared: DE Aaron Donald, TE Colby Parkinson, CB Jaylen Watson"
+     ]
+    },
+    "situation": [
+     "Rest: both last played Sun Oct 4, so rest is even.",
+     "Travel: BUF goes cross-country, but it's a night kickoff (not an early body-clock game).",
+     "Non-division, primetime: leans slightly under.",
+     "Small sample: both teams have played 4 games (no LOW CONFIDENCE flag, which is <4)."
+    ],
+    "kills_it": {
+     "2H U26.5": "A shootout late: LAR's 2nd half at DEN produced 40 points.",
+     "BUF +3.5": "LAR's top-3 defense holds BUF's offense down and the Rams win by a TD."
+    }
+   },
+   "teams": {
+    "BUF": {
+     "games": 4,
+     "low_confidence": false,
+     "log": [
+      {
+       "wk": 1,
+       "opp": "HOU",
+       "home": false,
+       "pf": 36,
+       "pa": 31,
+       "h1f": 24.0,
+       "h1a": 21.0,
+       "h2f": 12.0,
+       "h2a": 10.0,
+       "ot": false
+      },
+      {
+       "wk": 2,
+       "opp": "DET",
+       "home": true,
+       "pf": 41,
+       "pa": 31,
+       "h1f": 27.0,
+       "h1a": 10.0,
+       "h2f": 14.0,
+       "h2a": 21.0,
+       "ot": false
+      },
+      {
+       "wk": 3,
+       "opp": "LAC",
+       "home": true,
+       "pf": 24,
+       "pa": 16,
+       "h1f": 10.0,
+       "h1a": 10.0,
+       "h2f": 14.0,
+       "h2a": 6.0,
+       "ot": false
+      },
+      {
+       "wk": 4,
+       "opp": "NE",
+       "home": true,
+       "pf": 26,
+       "pa": 29,
+       "h1f": 17.0,
+       "h1a": 14.0,
+       "h2f": 9.0,
+       "h2a": 15.0,
+       "ot": false
+      }
+     ],
+     "espn": {
+      "pf": 31.75,
+      "pa": 26.75,
+      "h1f": 19.5,
+      "h1a": 13.75,
+      "h2f": 12.25,
+      "h2a": 13.0
+     },
+     "statrankings": {
+      "pf": 31.8,
+      "pa": 26.8,
+      "pa_est_off": 26.8,
+      "h1f": 19.5,
+      "h1a": 13.8,
+      "h2f": 12.3,
+      "h2a": 13.0
+     },
+     "h1_under": 1,
+     "h2_under": 3,
+     "epa": {
+      "off": {
+       "plays": 235,
+       "epa": 0.190559660901001,
+       "sr": 0.4765957446808511,
+       "rank": 2
+      },
+      "def": {
+       "plays": 271,
+       "epa": 0.1056498741006727,
+       "sr": 0.4833948339483395,
+       "rank": 28
+      }
+     },
+     "stats": {
+      "ypp": "6.5",
+      "opp_ypp": "5.6",
+      "plays": "59.5",
+      "spp": "28.3",
+      "top": "28:06",
+      "third": "57.8%",
+      "opp_third": "42.3%",
+      "opp_rztd": "68.8%",
+      "opp_ypa": "6.5",
+      "pressure": "35.9%",
+      "to_margin": "-0.50",
+      "pen": "7.5",
+      "h1_top": "54.2%"
+     },
+     "trends": {
+      "tr_moneyline": {
+       "Team": "Buffalo Bills",
+       "Win/Loss": "3-1-0",
+       "Win %": "75.0%",
+       "Average OddsAvg Odds": "-257"
+      },
+      "tr_ats": {
+       "Team": "Buffalo Bills",
+       "ATS Record": "3-1-0",
+       "Cover %": "75.0%",
+       "MOV": "5.0",
+       "ATS +/-": "-0.50"
+      },
+      "tr_totals": {
+       "Team": "Buffalo Bills",
+       "Over Record": "3-1-0",
+       "Over %": "75.0%",
+       "Under %": "25.0%",
+       "Total +/-": "+13.30"
+      }
+     }
+    },
+    "LAR": {
+     "games": 4,
+     "low_confidence": false,
+     "log": [
+      {
+       "wk": 1,
+       "opp": "SF",
+       "home": true,
+       "pf": 7,
+       "pa": 27,
+       "h1f": 7.0,
+       "h1a": 10.0,
+       "h2f": 0.0,
+       "h2a": 17.0,
+       "ot": false
+      },
+      {
+       "wk": 2,
+       "opp": "NYG",
+       "home": true,
+       "pf": 28,
+       "pa": 6,
+       "h1f": 14.0,
+       "h1a": 3.0,
+       "h2f": 14.0,
+       "h2a": 3.0,
+       "ot": false
+      },
+      {
+       "wk": 3,
+       "opp": "DEN",
+       "home": false,
+       "pf": 26,
+       "pa": 30,
+       "h1f": 16.0,
+       "h1a": 0.0,
+       "h2f": 10.0,
+       "h2a": 30.0,
+       "ot": false
+      },
+      {
+       "wk": 4,
+       "opp": "PHI",
+       "home": false,
+       "pf": 24,
+       "pa": 20,
+       "h1f": 10.0,
+       "h1a": 20.0,
+       "h2f": 14.0,
+       "h2a": 0.0,
+       "ot": false
+      }
+     ],
+     "espn": {
+      "pf": 21.25,
+      "pa": 20.75,
+      "h1f": 11.75,
+      "h1a": 8.25,
+      "h2f": 9.5,
+      "h2a": 12.5
+     },
+     "statrankings": {
+      "pf": 21.3,
+      "pa": 20.8,
+      "pa_est_off": 19.3,
+      "h1f": 11.8,
+      "h1a": 8.3,
+      "h2f": 9.5,
+      "h2a": 11.0
+     },
+     "h1_under": 3,
+     "h2_under": 3,
+     "epa": {
+      "off": {
+       "plays": 268,
+       "epa": 0.026220627856618845,
+       "sr": 0.4701492537313433,
+       "rank": 11
+      },
+      "def": {
+       "plays": 239,
+       "epa": -0.12235848650823401,
+       "sr": 0.39330543933054396,
+       "rank": 3
+      }
+     },
+     "stats": {
+      "ypp": "6.0",
+      "opp_ypp": "4.2",
+      "plays": "69.0",
+      "spp": "27.2",
+      "top": "31:19",
+      "third": "49.0%",
+      "opp_third": "33.3%",
+      "opp_rztd": "58.3%",
+      "opp_ypa": "4.3",
+      "pressure": "30.8%",
+      "to_margin": "-1.25",
+      "pen": "7.8",
+      "h1_top": "48.1%"
+     },
+     "trends": {
+      "tr_moneyline": {
+       "Team": "Los Angeles Rams",
+       "Win/Loss": "2-2-0",
+       "Win %": "50.0%",
+       "Average OddsAvg Odds": "-199"
+      },
+      "tr_ats": {
+       "Team": "Los Angeles Rams",
+       "ATS Record": "2-2-0",
+       "Cover %": "50.0%",
+       "MOV": "0.5",
+       "ATS +/-": "-3.60"
+      },
+      "tr_totals": {
+       "Team": "Los Angeles Rams",
+       "Over Record": "1-2-1",
+       "Over %": "33.3%",
+       "Under %": "66.7%",
+       "Total +/-": "-0.40"
+      }
+     }
+    }
+   },
+   "proj": {
+    "league_avg_ppg": 23.290625,
+    "raw": {
+     "away": 26.25,
+     "home": 24.0,
+     "margin_home": -0.75,
+     "total": 50.25
+    },
+    "adj": {
+     "away": 26.165625,
+     "home": 25.040625,
+     "margin_home": 0.375,
+     "total": 51.20625
+    },
+    "schedule": {
+     "BUF": {
+      "opps": [
+       "HOU",
+       "DET",
+       "LAC",
+       "NE"
+      ],
+      "opp_avg_pa": 24.15,
+      "opp_avg_pf": 23.4,
+      "adj_off": 30.890625,
+      "adj_def": 26.640625
+     },
+     "LAR": {
+      "opps": [
+       "SF",
+       "NYG",
+       "DEN",
+       "PHI"
+      ],
+      "opp_avg_pa": 21.1,
+      "opp_avg_pf": 22.6,
+      "adj_off": 23.440624999999997,
+      "adj_def": 21.440624999999997
+     }
+    },
+    "h1": 26.625,
+    "h2": 23.625
+   },
+   "markets": [
+    {
+     "pick": "LAR -176",
+     "team": "LAR",
+     "price": -176,
+     "model": 0.49438102730066613,
+     "fair": 0.6126207051426006,
+     "final": 0.5830607856821169,
+     "dog": false,
+     "disagree": true,
+     "bet": "ML",
+     "need": -140,
+     "other": {
+      "pick": "BUF +148",
+      "team": "BUF",
+      "price": 148,
+      "model": 0.5056189726993339,
+      "fair": 0.3873792948573995,
+      "final": 0.4169392143178831,
+      "dog": true,
+      "disagree": true
+     },
+     "qualifies": false,
+     "blocked_by": [
+      "below 60%",
+      "DISAGREE",
+      "overpriced"
+     ]
+    },
+    {
+     "pick": "BUF +3.5",
+     "team": "BUF",
+     "price": -115,
+     "model": 0.6091129375644484,
+     "fair": 0.5108342361863488,
+     "final": 0.5354039115308737,
+     "disagree": false,
+     "bet": "Spread",
+     "need": -115,
+     "other": {
+      "pick": "LAR -3.5",
+      "team": "LAR",
+      "price": -105,
+      "model": 0.3908870624355516,
+      "fair": 0.4891657638136511,
+      "final": 0.46459608846912626,
+      "disagree": false
+     },
+     "qualifies": false,
+     "blocked_by": [
+      "below 60%"
+     ]
+    },
+    {
+     "pick": "Under 54.5",
+     "price": -105,
+     "model": 0.6099631437734798,
+     "fair": 0.4891657638136511,
+     "final": 0.5193651088036083,
+     "disagree": true,
+     "bet": "O/U",
+     "need": -108,
+     "other": {
+      "pick": "Over 54.5",
+      "price": -115,
+      "model": 0.39003685622652023,
+      "fair": 0.5108342361863488,
+      "final": 0.4806348911963917,
+      "disagree": true
+     },
+     "qualifies": false,
+     "blocked_by": [
+      "below 60%",
+      "DISAGREE"
+     ]
+    },
+    {
+     "bet": "1H U26.5",
+     "pick": "Under 26.5",
+     "model": 0.49501335135596203,
+     "league": 0.6753246753246753,
+     "final": 0.5851690133403187,
+     "need": -141,
+     "team_count": 4,
+     "team_games": 8,
+     "price": null,
+     "disagree": false,
+     "qualifies": false,
+     "blocked_by": [
+      "below 65%",
+      "team count 4/8 < 75%"
+     ]
+    },
+    {
+     "bet": "2H U26.5",
+     "pick": "Under 26.5",
+     "model": 0.6078844978567614,
+     "league": 0.6623376623376623,
+     "final": 0.6351110800972118,
+     "need": -174,
+     "team_count": 6,
+     "team_games": 8,
+     "price": null,
+     "disagree": false,
+     "qualifies": false,
+     "blocked_by": [
+      "below 65%"
+     ]
+    }
+   ]
+  }
+ ],
+ "parlays": []
+}

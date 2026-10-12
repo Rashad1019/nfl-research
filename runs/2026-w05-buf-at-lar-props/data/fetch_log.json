@@ -1,0 +1,447 @@
+[
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872656",
+    "file": "g_401872656.json",
+    "bytes": 551167
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872925",
+    "file": "g_401872925.json",
+    "bytes": 561816
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872923",
+    "file": "g_401872923.json",
+    "bytes": 689907
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872924",
+    "file": "g_401872924.json",
+    "bytes": 550003
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872659",
+    "file": "g_401872659.json",
+    "bytes": 585552
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872658",
+    "file": "g_401872658.json",
+    "bytes": 603619
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872661",
+    "file": "g_401872661.json",
+    "bytes": 642670
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872922",
+    "file": "g_401872922.json",
+    "bytes": 525806
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872928",
+    "file": "g_401872928.json",
+    "bytes": 570802
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872927",
+    "file": "g_401872927.json",
+    "bytes": 602255
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872929",
+    "file": "g_401872929.json",
+    "bytes": 576534
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872926",
+    "file": "g_401872926.json",
+    "bytes": 574338
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872930",
+    "file": "g_401872930.json",
+    "bytes": 524050
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872931",
+    "file": "g_401872931.json",
+    "bytes": 563327
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872933",
+    "file": "g_401872933.json",
+    "bytes": 583276
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872937",
+    "file": "g_401872937.json",
+    "bytes": 547564
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872939",
+    "file": "g_401872939.json",
+    "bytes": 547457
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872946",
+    "file": "g_401872946.json",
+    "bytes": 577056
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872936",
+    "file": "g_401872936.json",
+    "bytes": 606464
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872935",
+    "file": "g_401872935.json",
+    "bytes": 583742
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872938",
+    "file": "g_401872938.json",
+    "bytes": 543630
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872934",
+    "file": "g_401872934.json",
+    "bytes": 633372
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872940",
+    "file": "g_401872940.json",
+    "bytes": 542700
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872941",
+    "file": "g_401872941.json",
+    "bytes": 601723
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872944",
+    "file": "g_401872944.json",
+    "bytes": 546658
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872943",
+    "file": "g_401872943.json",
+    "bytes": 533743
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872942",
+    "file": "g_401872942.json",
+    "bytes": 514623
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872945",
+    "file": "g_401872945.json",
+    "bytes": 633821
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872948",
+    "file": "g_401872948.json",
+    "bytes": 567885
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872949",
+    "file": "g_401872949.json",
+    "bytes": 636058
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872954",
+    "file": "g_401872954.json",
+    "bytes": 547575
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872951",
+    "file": "g_401872951.json",
+    "bytes": 557487
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872952",
+    "file": "g_401872952.json",
+    "bytes": 530214
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872956",
+    "file": "g_401872956.json",
+    "bytes": 557639
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872950",
+    "file": "g_401872950.json",
+    "bytes": 547937
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872955",
+    "file": "g_401872955.json",
+    "bytes": 629691
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872957",
+    "file": "g_401872957.json",
+    "bytes": 562596
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872958",
+    "file": "g_401872958.json",
+    "bytes": 598078
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872959",
+    "file": "g_401872959.json",
+    "bytes": 624688
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872960",
+    "file": "g_401872960.json",
+    "bytes": 607503
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872961",
+    "file": "g_401872961.json",
+    "bytes": 613812
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872963",
+    "file": "g_401872963.json",
+    "bytes": 529833
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872964",
+    "file": "g_401872964.json",
+    "bytes": 611757
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872965",
+    "file": "g_401872965.json",
+    "bytes": 598943
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872972",
+    "file": "g_401872972.json",
+    "bytes": 543769
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872969",
+    "file": "g_401872969.json",
+    "bytes": 574673
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872966",
+    "file": "g_401872966.json",
+    "bytes": 613248
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872968",
+    "file": "g_401872968.json",
+    "bytes": 541945
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872973",
+    "file": "g_401872973.json",
+    "bytes": 587704
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872967",
+    "file": "g_401872967.json",
+    "bytes": 601990
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872974",
+    "file": "g_401872974.json",
+    "bytes": 547782
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872976",
+    "file": "g_401872976.json",
+    "bytes": 617239
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872975",
+    "file": "g_401872975.json",
+    "bytes": 575507
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872977",
+    "file": "g_401872977.json",
+    "bytes": 638697
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872978",
+    "file": "g_401872978.json",
+    "bytes": 618263
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872979",
+    "file": "g_401872979.json",
+    "bytes": 575318
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/2/roster?season=2026",
+    "file": "roster_BUF.json",
+    "bytes": 354070
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/8/roster?season=2026",
+    "file": "roster_DET.json",
+    "bytes": 380357
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/1/roster?season=2026",
+    "file": "roster_ATL.json",
+    "bytes": 376143
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/29/roster?season=2026",
+    "file": "roster_CAR.json",
+    "bytes": 369001
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/3/roster?season=2026",
+    "file": "roster_CHI.json",
+    "bytes": 392926
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/16/roster?season=2026",
+    "file": "roster_MIN.json",
+    "bytes": 359694
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/10/roster?season=2026",
+    "file": "roster_TEN.json",
+    "bytes": 391464
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/21/roster?season=2026",
+    "file": "roster_PHI.json",
+    "bytes": 369638
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/17/roster?season=2026",
+    "file": "roster_NE.json",
+    "bytes": 386212
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/23/roster?season=2026",
+    "file": "roster_PIT.json",
+    "bytes": 372727
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/20/roster?season=2026",
+    "file": "roster_NYJ.json",
+    "bytes": 382088
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/9/roster?season=2026",
+    "file": "roster_GB.json",
+    "bytes": 376284
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/27/roster?season=2026",
+    "file": "roster_TB.json",
+    "bytes": 342271
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/5/roster?season=2026",
+    "file": "roster_CLE.json",
+    "bytes": 370334
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/33/roster?season=2026",
+    "file": "roster_BAL.json",
+    "bytes": 372683
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/18/roster?season=2026",
+    "file": "roster_NO.json",
+    "bytes": 387193
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/34/roster?season=2026",
+    "file": "roster_HOU.json",
+    "bytes": 416458
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/4/roster?season=2026",
+    "file": "roster_CIN.json",
+    "bytes": 339610
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/7/roster?season=2026",
+    "file": "roster_DEN.json",
+    "bytes": 369202
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/30/roster?season=2026",
+    "file": "roster_JAX.json",
+    "bytes": 367244
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/24/roster?season=2026",
+    "file": "roster_LAC.json",
+    "bytes": 362607
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/13/roster?season=2026",
+    "file": "roster_LV.json",
+    "bytes": 363383
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/6/roster?season=2026",
+    "file": "roster_DAL.json",
+    "bytes": 376108
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/28/roster?season=2026",
+    "file": "roster_WSH.json",
+    "bytes": 365048
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/22/roster?season=2026",
+    "file": "roster_ARI.json",
+    "bytes": 386851
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/26/roster?season=2026",
+    "file": "roster_SEA.json",
+    "bytes": 382137
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/25/roster?season=2026",
+    "file": "roster_SF.json",
+    "bytes": 423481
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/15/roster?season=2026",
+    "file": "roster_MIA.json",
+    "bytes": 350217
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/12/roster?season=2026",
+    "file": "roster_KC.json",
+    "bytes": 348059
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/11/roster?season=2026",
+    "file": "roster_IND.json",
+    "bytes": 357761
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/14/roster?season=2026",
+    "file": "roster_LAR.json",
+    "bytes": 365536
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/19/roster?season=2026",
+    "file": "roster_NYG.json",
+    "bytes": 381863
+  },
+  {
+    "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2026.csv.gz",
+    "file": "pbp.csv.gz",
+    "bytes": 5282643
+  }
+]
