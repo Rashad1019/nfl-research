@@ -3,11 +3,35 @@
 Read this whole file before doing anything in this repo. It is the hand-off document: a new
 Claude/LLM session (or a human) should be able to continue the work from here with no other context.
 
+## ⚠ Standing rule: every run gets pushed
+
+**Every time either template runs (Template A game bets or Template B player props), and every
+grading ("grade it"), save the results here and push them to GitHub (`main`) in the same session.**
+No asking first. Rashad has made this a permanent instruction. A run is not finished until it's pushed.
+Vercel is connected to this repo, so the push is also what publishes the website.
+
+| What ran | What to save under `runs/` | Then |
+|---|---|---|
+| Template A | `runs/<season>-w<WW>-<away>-at-<home>/`: config, data snapshot, result.json, report.html (workflow below) | rebuild `index.html`, commit, push |
+| Template B | `runs/<season>-w<WW>-<away>-at-<home>-props/props.md`: the full chat output (tables, TD picks, WHY/DEFENSE/KILLS IT/WATCH, sources) + any data/scripts used. The HTML builder for B isn't built yet (see Roadmap) | commit, push |
+| Grading | `runs/<run>/grades.json` (+ update the run's report when that's built) | commit, push |
+
+```bash
+cd ~/Code/projects/nfl-research
+git add -A && git commit -m "Week N: AWAY @ HOME Template A run" && git push origin main
+```
+(Use "Template B props" or "Grades" in the message as appropriate. End the commit message with the
+Co-Authored-By attribution line if the session's instructions call for one.)
+Then tell Rashad it was pushed, and include the commit link.
+
+The same rule is in the skill itself (`~/.claude/skills/nfl-bet-research/SKILL.md`, "How to run it"
+step 5), so a session started anywhere finds its way here.
+
 ## What this repo is
 
 Rashad runs the **`nfl-bet-research` skill** (Claude skill; Template A = game bets, Template B = player
-props). Every time a Template A run is done, its data, model output and a colorful HTML report are
-committed here and **pushed to `main`**. Repo: https://github.com/Rashad1019/nfl-research (public).
+props). Every time either template runs, its results are committed here and **pushed to `main`**
+(see the standing rule above). Template A runs also get a colorful HTML report. Repo: https://github.com/Rashad1019/nfl-research (public).
 
 - `index.html` (root): list of every run, newest first. Regenerated automatically.
 - `runs/<season>-w<WW>-<away>-at-<home>/report.html`: the visual report for one run.
@@ -164,7 +188,7 @@ ESPN endpoints (no key needed):
 - Push straight to `main`. Rashad asked for every run to be pushed here.
 
 ## Roadmap / not built yet
-- Template B (player props) pipeline + report.
+- Template B (player props) pipeline + HTML report (until then, B runs are pushed as `props.md`).
 - `grades.json` + a running record by bet type on `index.html` (skill "Results log").
 
 ## Run history
